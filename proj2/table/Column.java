@@ -4,13 +4,14 @@ package table; /**
 import java.util.ArrayList;
 
 public class Column {
-    private ArrayList<Object> elements;
+    private ArrayList<Type> elements;
     private String name;
+    private Type colType;
 
-    public Column(String name, Object... args) {
+    public Column(String name, Type... args) {
         this.name = name;
         this.elements = new ArrayList<>();
-        for (Object element : args) {
+        for (Type element : args) {
             this.elements.add(element);
         }
     }
@@ -24,5 +25,15 @@ public class Column {
         return this.name;
     }
 
+    public void add(Type element) {
+        this.elements.add(element);
+    }
 
+    public int size() {
+        return this.elements.size();
+    }
+
+    public Type get(int index) {
+        return this.elements.get(index);
+    }
 }

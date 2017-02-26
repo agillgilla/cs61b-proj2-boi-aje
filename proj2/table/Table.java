@@ -18,9 +18,9 @@ public class Table {
         }
     }
 
-    public void addRow(Object... entries) {
+    public void addRow(Type... entries) {
         int columnIndex = 0;
-        for (Object entry : entries) {
+        for (Type entry : entries) {
             this.columns.get(columnIndex).add(entry);
             columnIndex++;
         }
@@ -50,12 +50,12 @@ public class Table {
             foundShared = false;
             for (int j = 0; j < other.columns.size(); j++) {
                 if (this.columns.get(i).getName().equals(other.columns.get(j).getName())) {
-                    sharedColumns.addLast(this.columns.get(i));
+                    sharedColumns.add(this.columns.get(i));
                     foundShared = true;
                 }
             }
             if (!foundShared) {
-                leftUnsharedColumns.addLast(this.columns.get(i));
+                leftUnsharedColumns.add(this.columns.get(i));
             }
         }
         foundShared = false;
@@ -67,7 +67,7 @@ public class Table {
                 }
             }
             if (!foundShared) {
-                rightUnsharedColumns.addLast(other.columns.get(i));
+                rightUnsharedColumns.add(other.columns.get(i));
             }
         }
         return new Table(sharedColumns, leftUnsharedColumns, rightUnsharedColumns);
