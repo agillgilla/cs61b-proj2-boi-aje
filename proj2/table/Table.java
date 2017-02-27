@@ -52,40 +52,18 @@ public class Table {
         }
     }
 
-    public Table join(Table other) {
-        Table sharedColumns = new Table();
-        Table leftUnsharedColumns = new Table();
-        Table rightUnsharedColumns = new Table();
+    public Column getColumn(String columnName) {
+        return this.columns.get(columnName);
+    }
 
-        boolean foundShared = false;
-
-        for (int i = 0; i < this.columns.size(); i++) {
-            foundShared = false;
-            for (int j = 0; j < other.columns.size(); j++) {
-                if (this.columns.get(i).getName().equals(other.columns.get(j).getName())) {
-                    sharedColumns.addColumn(this.columns.get(i));
-                    foundShared = true;
-                }
-            }
-            if (!foundShared) {
-                leftUnsharedColumns.addColumn(this.columns.get(i));
-            }
+    public String[] getColumnNames() {
+        String[] columnNames = new String[this.getWidth()];
+        int i = 0;
+        for (String columnName : this.columns.keySet()) {
+            columnNames[i] = columnName;
+            i++;
         }
-        foundShared = false;
-        for (int i = 0; i < other.columns.size(); i++) {
-            foundShared = false;
-            for (int j = 0; j < this.columns.size(); j++) {
-                if (this.columns.get(i).getName().equals(other.columns.get(j).getName())) {
-                    foundShared = true;
-                }
-            }
-            if (!foundShared) {
-                rightUnsharedColumns.addColumn(other.columns.get(i));
-            }
-        }
-        //return new Table(sharedColumns, leftUnsharedColumns, rightUnsharedColumns);
-        return null;
-
+        return columnNames;
     }
 
     public int getHeight() {
