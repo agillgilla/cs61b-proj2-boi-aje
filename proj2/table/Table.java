@@ -1,7 +1,5 @@
 package table;
 
-import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -9,7 +7,7 @@ import java.util.LinkedHashMap;
  */
 
 public class Table {
-    public LinkedHashMap<String, Column> columns = new LinkedHashMap<>();
+    private LinkedHashMap<String, Column> columns = new LinkedHashMap<>();
     //public table.Table(String filename) {
     public Table(String[] columnNames) {
         for (String columnName : columnNames) {
@@ -24,14 +22,20 @@ public class Table {
     }
 
     public void addRow(Type[] elements) {
+        if (elements.length != this.getWidth()) {
+            throw new RuntimeException("Table rectangularity must be preserved");
+        }
         int i = 0;
-        for(String columnName : this.columns.keySet()){
+        for (String columnName : this.columns.keySet()) {
             this.columns.get(columnName).add(elements[i]);
             i++;
         }
     }
 
     public void addColumn(Column col) {
+        if (col.size() != this.getHeight()) {
+            throw new RuntimeException("Table rectangularity must be preserved");
+        }
         this.columns.put(col.getName(), col);
     }
 
@@ -49,9 +53,9 @@ public class Table {
     }
 
     public Table join(Table other) {
-        ArrayList<Column> sharedColumns = new ArrayList<>();
-        ArrayList<Column> leftUnsharedColumns = new ArrayList<>();
-        ArrayList<Column> rightUnsharedColumns = new ArrayList<>();
+        Table sharedColumns = new Table();
+        Table leftUnsharedColumns = new Table();
+        Table rightUnsharedColumns = new Table();
 
         boolean foundShared = false;
 
@@ -59,12 +63,12 @@ public class Table {
             foundShared = false;
             for (int j = 0; j < other.columns.size(); j++) {
                 if (this.columns.get(i).getName().equals(other.columns.get(j).getName())) {
-                    sharedColumns.add(this.columns.get(i));
+                    sharedColumns.addColumn(this.columns.get(i));
                     foundShared = true;
                 }
             }
             if (!foundShared) {
-                leftUnsharedColumns.add(this.columns.get(i));
+                leftUnsharedColumns.addColumn(this.columns.get(i));
             }
         }
         foundShared = false;
@@ -76,7 +80,7 @@ public class Table {
                 }
             }
             if (!foundShared) {
-                rightUnsharedColumns.add(other.columns.get(i));
+                rightUnsharedColumns.addColumn(other.columns.get(i));
             }
         }
         //return new Table(sharedColumns, leftUnsharedColumns, rightUnsharedColumns);
@@ -105,6 +109,7 @@ public class Table {
         T1.addRow(new IntType[] {new IntType(2), new IntType(5)});
         T1.addRow(new IntType[] {new IntType(8), new IntType(3)});
         T1.addRow(new IntType[] {new IntType(13), new IntType(7)});
+        T1.addColumn(new Column("Z", new IntType[] {new IntType(11), new IntType(9), new IntType(4)}));
         T1.printTable();
     }
 }
