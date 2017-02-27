@@ -5,7 +5,7 @@ package table;
  */
 public class TblCommands {
 
-    public Table join(Table t1, Table t2) {
+    public static Table join(Table t1, Table t2) {
         Table sharedColumns = new Table();
         Table leftUnsharedColumns = new Table();
         Table rightUnsharedColumns = new Table();

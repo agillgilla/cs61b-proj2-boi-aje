@@ -7,22 +7,36 @@ import java.util.LinkedHashMap;
  */
 
 public class Table {
-    private LinkedHashMap<String, Column> columns = new LinkedHashMap<>();
+    private LinkedHashMap<String, Column> columns;
     //public table.Table(String filename) {
+
+    public Table() {
+        this.columns =  new LinkedHashMap<>();
+    }
+
     public Table(String[] columnNames) {
+        this.columns =  new LinkedHashMap<>();
+
         for (String columnName : columnNames) {
             this.columns.put(columnName, new Column(columnName));
         }
     }
 
     public Table(Table... tables) {
+        this.columns =  new LinkedHashMap<>();
         for (Table table : tables) {
-
+            if (table.getWidth() != 0) {
+                for (String columnName : table.getColumnNames()) {
+                    this.addColumn(table.getColumn(columnName));
+                }
+            }
         }
     }
 
     public void addRow(Type[] elements) {
-        if (elements.length != this.getWidth()) {
+        if (this.getWidth() == 0) {
+
+        } else if (elements.length != this.getWidth()) {
             throw new RuntimeException("Table rectangularity must be preserved");
         }
         int i = 0;
@@ -33,7 +47,9 @@ public class Table {
     }
 
     public void addColumn(Column col) {
-        if (col.size() != this.getHeight()) {
+        if (this.getHeight() == 0) {
+
+        } else if (col.size() != this.getHeight()) {
             throw new RuntimeException("Table rectangularity must be preserved");
         }
         this.columns.put(col.getName(), col);
@@ -89,5 +105,20 @@ public class Table {
         T1.addRow(new IntType[] {new IntType(13), new IntType(7)});
         T1.addColumn(new Column("Z", new IntType[] {new IntType(11), new IntType(9), new IntType(4)}));
         T1.printTable();
+
+        System.out.println("");
+
+        Table T2 = new Table(new String[] {"A", "B"});
+        T2.addRow(new IntType[] {new IntType(5), new IntType(10)});
+        T2.addRow(new IntType[] {new IntType(6), new IntType(12)});
+        T2.addRow(new IntType[] {new IntType(9), new IntType(0)});
+        T2.addColumn(new Column("C", new IntType[] {new IntType(11), new IntType(9), new IntType(4)}));
+        T2.printTable();
+
+        System.out.println("");
+
+        Table T1_T2 = TblCommands.join(T1, T2);
+        T1_T2.printTable();
+
     }
 }
