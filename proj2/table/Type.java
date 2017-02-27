@@ -17,4 +17,8 @@ public abstract class Type {
         return this.value;
     }
 
+    public String toString() {
+        return this.getValue().toString();
+    }
+
 }

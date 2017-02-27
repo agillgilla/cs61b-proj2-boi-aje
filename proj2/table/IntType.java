@@ -52,4 +52,5 @@ public class IntType extends Type {
     public Integer getValue() {
         return (Integer) super.getValue();
     }
+
 }

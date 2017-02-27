@@ -8,10 +8,10 @@ public class Column {
     private String name;
     private Type colType;
 
-    public Column(String name, Type... args) {
+    public Column(String name, Type[] elements) {
         this.name = name;
         this.elements = new ArrayList<>();
-        for (Type element : args) {
+        for (Type element : elements) {
             this.elements.add(element);
         }
     }
