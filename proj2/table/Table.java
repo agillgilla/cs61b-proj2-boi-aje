@@ -74,6 +74,14 @@ public class Table {
         return this.columns.get(columnName);
     }
 
+    public Column getColumnByIndex(int index) {
+        if (index >= this.getWidth()) {
+            throw new RuntimeException("Index out of bounds of table columns.");
+        } else {
+            return this.columns.get(this.columns.keySet().toArray()[index]);
+        }
+    }
+
     public String[] getColumnNames() {
         String[] columnNames = new String[this.getWidth()];
         int i = 0;
@@ -121,6 +129,9 @@ public class Table {
 
         Table T1_T2 = TblCommands.join(T1, T2);
         T1_T2.printTable();
+
+        Object string = new String("YOLO");
+        System.out.println(string.getClass());
 
     }
 }

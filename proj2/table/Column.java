@@ -4,9 +4,10 @@ package table; /**
 import java.util.ArrayList;
 
 public class Column {
+
     private ArrayList<Type> elements;
     private String name;
-    private Type colType;
+    private String type;
 
     public Column(String name, Type[] elements) {
         this.name = name;
@@ -16,6 +17,12 @@ public class Column {
         }
     }
 
+    public Column(String name, String type) {
+        this.name = name;
+        this.elements = new ArrayList<>();
+        this.type = type;
+    }
+
     public Column(String name) {
         this.name = name;
         this.elements = new ArrayList<>();
@@ -23,6 +30,10 @@ public class Column {
 
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void add(Type element) {
@@ -35,5 +46,9 @@ public class Column {
 
     public Type get(int index) {
         return this.elements.get(index);
+    }
+
+    public String getType() {
+        return this.type;
     }
 }
