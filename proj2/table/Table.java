@@ -2,6 +2,7 @@ package table;
 
 import query_handler.TblCommands;
 import table_io.TblFileReader;
+import table_io.TblFileWriter;
 
 import java.util.LinkedHashMap;
 
@@ -10,8 +11,8 @@ import java.util.LinkedHashMap;
  */
 
 public class Table {
+    private String name;
     private LinkedHashMap<String, Column> columns;
-    //public table.Table(String filename) {
 
     public Table() {
         this.columns =  new LinkedHashMap<>();
@@ -109,6 +110,13 @@ public class Table {
         }
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return this.name;
+    }
+
     public static void main(String[] args) {
         Table T1 = new Table(new String[] {"X", "Y"});
         T1.addRow(new IntType[] {new IntType(2), new IntType(5)});
@@ -136,6 +144,14 @@ public class Table {
         Table T3 = TblFileReader.readTable("test");
 
         T3.printTable();
+
+        System.out.println("");
+
+        T1_T2.setName("join_test");
+        TblFileWriter.writeTable(T1_T2);
+
+        Table T1_T2Read = TblFileReader.readTable("join_test");
+        T1_T2Read.printTable();
 
     }
 }
