@@ -19,18 +19,19 @@ public class TblFileReader {
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
                 String[] entries = line.split(",");
+
                 if (firstLine) {
                     for (String colName : entries) {
                         String[] nameAndType = colName.split("\\s+");
                         switch (nameAndType[1]) {
                             case "string":
-                                table.addColumn(new Column(nameAndType[0], new StringType[0]));
+                                table.addColumn(new Column(nameAndType[0], "string"));
                                 break;
                             case "int":
-                                table.addColumn(new Column(nameAndType[0], new IntType[0]));
+                                table.addColumn(new Column(nameAndType[0], "int"));
                                 break;
                             case "float":
-                                table.addColumn(new Column(nameAndType[0], new FloatType[0]));
+                                table.addColumn(new Column(nameAndType[0], "float"));
                             default:
                                 throw new RuntimeException("Unrecognized data type: " + nameAndType[1]);
                         }

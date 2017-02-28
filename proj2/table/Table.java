@@ -1,6 +1,7 @@
 package table;
 
 import query_handler.TblCommands;
+import table_io.TblFileReader;
 
 import java.util.LinkedHashMap;
 
@@ -64,7 +65,7 @@ public class Table {
         System.out.println("");
         for (int row = 0; row < this.getHeight(); row++) {
             for (String columnName : this.columns.keySet()) {
-                System.out.print(this.columns.get(columnName).get(row) + "\t");
+                System.out.print(this.columns.get(columnName).get(row) + " \t");
             }
             System.out.println("");
         }
@@ -130,8 +131,11 @@ public class Table {
         Table T1_T2 = TblCommands.join(T1, T2);
         T1_T2.printTable();
 
-        Object string = new String("YOLO");
-        System.out.println(string.getClass());
+        System.out.println("");
+
+        Table T3 = TblFileReader.readTable("test");
+
+        T3.printTable();
 
     }
 }

@@ -1,0 +1,7 @@
+Lastname string,Firstname string,TeamName string,Score int
+'Lee','Maurice','Mets',5
+'Lee','Maurice','Steelers',7
+'Ray','Mitas','Patriots',10
+'Hwang','Alex','Cloud9',11
+'Rulison','Jared','EnVyUs',3
+'Fang','Vivian','Golden Bears',6

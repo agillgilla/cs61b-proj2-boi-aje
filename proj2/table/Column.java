@@ -49,6 +49,23 @@ public class Column {
     }
 
     public String getType() {
+        if (this.elements.size() != 0 && this.type == null) {
+            switch (this.elements.get(0).getClass().getSimpleName()) {
+                case "StringType":
+                    this.type = "string";
+                    break;
+                case "IntType":
+                    this.type = "int";
+                    break;
+                case "FloatType":
+                    this.type = "float";
+                    break;
+                default:
+                    throw new RuntimeException("Unrecognized column type");
+            }
+        } else if (this.type == null) {
+            throw new RuntimeException("Error: Cannot get column type, hasn't been assigned");
+        }
         return this.type;
     }
 }
