@@ -1,5 +1,7 @@
 package table;
 
+import query_handler.TblCommands;
+
 import java.util.LinkedHashMap;
 
 /**

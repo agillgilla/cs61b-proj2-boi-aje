@@ -1,4 +1,6 @@
-package table;
+package query_handler;
+
+import table.Table;
 
 /**
  * Created by Arjun on 2/27/2017.
