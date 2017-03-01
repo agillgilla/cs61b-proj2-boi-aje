@@ -11,6 +11,7 @@ public class TblCommands {
     public static Table join(Table t1, Table t2) {
         Table leftSharedColumns = new Table();
         Table leftUnsharedColumns = new Table();
+        Table rightSharedColumns = new Table();
         Table rightUnsharedColumns = new Table();
 
         boolean foundShared = false;
@@ -31,6 +32,7 @@ public class TblCommands {
             foundShared = false;
             for (String t1ColName : t1.getColumnNames()) {
                 if (t1ColName.equals(t2ColName)) {
+                    rightSharedColumns.addColumn(t2.getColumn(t2ColName));
                     foundShared = true;
                 }
             }
@@ -39,8 +41,9 @@ public class TblCommands {
             }
         }
 
-        Table rightSharedColumns = t2;
         boolean foundMatch = false;
+        //Table rightSharedColumns = t2;
+        //rightSharedColumns.printTable();
 
         for (int c = 0; c < leftSharedColumns.getWidth(); c++) {
 
@@ -61,12 +64,38 @@ public class TblCommands {
                     index--;
                 }
             }
+        }
 
+        foundMatch = false;
 
+        for (int c = 0; c < rightSharedColumns.getWidth(); c++) {
 
+            Column rightColumn = rightSharedColumns.getColumnByIndex(c);
+            Column leftColumn = leftSharedColumns.getColumn(rightColumn.getName());
+
+            //leftSharedColumns.printTable();;
+            //rightSharedColumns.printTable();
+
+            for (int index = 0; index < rightColumn.size(); index++) {
+                //System.out.println("Index: " + index);
+                //System.out.println("Size: " + rightColumn.size());
+                foundMatch = false;
+                //System.out.println(leftColumn);
+                for (int lIndex = 0; lIndex < leftColumn.size(); lIndex++) {
+                    //System.out.println("Comparing " + leftColumn.get(index) + " and " + rightColumn.get(rIndex));
+                    if (rightColumn.get(index).getValue().equals(leftColumn.get(lIndex).getValue())) {
+                        foundMatch = true;
+                    }
+                }
+                if (!foundMatch) {
+                    rightSharedColumns.removeRow(index);
+                    rightUnsharedColumns.removeRow(index);
+                    index--;
+                }
+            }
         }
         
-        return new Table(leftSharedColumns, leftUnsharedColumns);
+        return new Table(leftSharedColumns, leftUnsharedColumns, rightUnsharedColumns);
     }
 
 }

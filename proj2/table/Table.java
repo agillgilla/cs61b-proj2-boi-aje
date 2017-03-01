@@ -161,12 +161,15 @@ public class Table {
         T1_T2Read.printTable(); */
 
         Table T1 = new Table();
-        T1.addColumn(new Column("X", new IntType[] {new IntType(2), new IntType(8), new IntType(13)}));
-        T1.addColumn(new Column("Y", new IntType[] {new IntType(5), new IntType(3), new IntType(7)}));
+        T1.addColumn(new Column("X", new IntType[] {new IntType(1), new IntType(7), new IntType(1)}));
+        T1.addColumn(new Column("Y", new IntType[] {new IntType(7), new IntType(7), new IntType(9)}));
+        T1.addColumn(new Column("Z", new IntType[] {new IntType(2), new IntType(4), new IntType(9)}));
+        T1.addColumn(new Column("W", new IntType[] {new IntType(10), new IntType(1), new IntType(1)}));
 
         Table T2 = new Table();
-        T2.addColumn(new Column("X", new IntType[] {new IntType(2), new IntType(8), new IntType(10), new IntType(11)}));
-        T2.addColumn(new Column("Z", new IntType[] {new IntType(4), new IntType(9), new IntType(1), new IntType(1)}));
+        T2.addColumn(new Column("W", new IntType[] {new IntType(1), new IntType(7), new IntType(1), new IntType(1)}));
+        T2.addColumn(new Column("B", new IntType[] {new IntType(7), new IntType(7), new IntType(9), new IntType(11)}));
+        T2.addColumn(new Column("Z", new IntType[] {new IntType(4), new IntType(3), new IntType(6), new IntType(9)}));
 
         Table T3 = TblCommands.join(T1, T2);
 
