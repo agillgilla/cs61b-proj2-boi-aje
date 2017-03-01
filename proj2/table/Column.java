@@ -40,6 +40,10 @@ public class Column {
         this.elements.add(element);
     }
 
+    public void remove(int index) {
+        this.elements.remove(index);
+    }
+
     public int size() {
         return this.elements.size();
     }

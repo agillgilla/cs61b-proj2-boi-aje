@@ -26,6 +26,7 @@ public class Table {
         }
     }
 
+    /* TODO: Check that height of tables are matching.*/
     public Table(Table... tables) {
         this.columns =  new LinkedHashMap<>();
         for (Table table : tables) {
@@ -47,6 +48,12 @@ public class Table {
         for (String columnName : this.columns.keySet()) {
             this.columns.get(columnName).add(elements[i]);
             i++;
+        }
+    }
+
+    public void removeRow(int index) {
+        for (String columnName : this.columns.keySet()) {
+            this.columns.get(columnName).remove(index);
         }
     }
 
@@ -118,7 +125,7 @@ public class Table {
     }
 
     public static void main(String[] args) {
-        Table T1 = new Table(new String[] {"X", "Y"});
+        /*Table T1 = new Table(new String[] {"X", "Y"});
         T1.addRow(new IntType[] {new IntType(2), new IntType(5)});
         T1.addRow(new IntType[] {new IntType(8), new IntType(3)});
         T1.addRow(new IntType[] {new IntType(13), new IntType(7)});
@@ -151,7 +158,20 @@ public class Table {
         TblFileWriter.writeTable(T1_T2);
 
         Table T1_T2Read = TblFileReader.readTable("join_test");
-        T1_T2Read.printTable();
+        T1_T2Read.printTable(); */
+
+        Table T1 = new Table();
+        T1.addColumn(new Column("X", new IntType[] {new IntType(2), new IntType(8), new IntType(13)}));
+        T1.addColumn(new Column("Y", new IntType[] {new IntType(5), new IntType(3), new IntType(7)}));
+
+        Table T2 = new Table();
+        T2.addColumn(new Column("X", new IntType[] {new IntType(2), new IntType(8), new IntType(10), new IntType(11)}));
+        T2.addColumn(new Column("Z", new IntType[] {new IntType(4), new IntType(9), new IntType(1), new IntType(1)}));
+
+        Table T3 = TblCommands.join(T1, T2);
+
+        T3.printTable();
+
 
     }
 }
