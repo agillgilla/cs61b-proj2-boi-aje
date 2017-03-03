@@ -44,7 +44,7 @@ public class TblFileWriter {
             tableWriter.close();
         }
         catch (IOException e) {
-            throw new RuntimeException("Unable to write to file");
+            throw new RuntimeException("ERROR: Unable to write to file '" + table.getName() + ".tbl'");
         }
     }
 

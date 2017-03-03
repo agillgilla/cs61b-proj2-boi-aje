@@ -26,7 +26,7 @@ public class Database {
         if (this.tableExists(name)) {
             return "ERROR: Table '" + name + "' already exists!";
         } else {
-            table.setName(name);
+            table.setName(name.trim());
             this.tables.put(name, table);
             return "";
         }
@@ -37,7 +37,7 @@ public class Database {
             return "ERROR: Table '" + name + "' already exists!";
         } else {
             this.tables.put(name, new Table(columns));
-            this.tables.get(name).setName(name);
+            this.tables.get(name).setName(name.trim());
             return "";
         }
     }
@@ -55,7 +55,7 @@ public class Database {
                 String[] nameAndType = colExpr.split("\\s+");
                 newTable.addColumn(new Column(nameAndType[0], nameAndType[1]));
             }
-            newTable.setName(name);
+            newTable.setName(name.trim());
             this.tables.put(name, newTable);
             return "";
         } catch (RuntimeException e) {
@@ -106,8 +106,16 @@ public class Database {
     }
 
     public String store(String name) {
-        TblFileWriter.writeTable(this.tables.get(name));
-        return "";
+        try {
+            if (this.tableExists(name)) {
+                TblFileWriter.writeTable(this.tables.get(name));
+                return "";
+            } else {
+                return "ERROR: Table '" + name + "' doesn't exist!";
+            }
+        } catch (RuntimeException e) {
+            return e.getMessage();
+        }
     }
 
     public String insert(String name, String[] row) {
