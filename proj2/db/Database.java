@@ -26,6 +26,7 @@ public class Database {
         if (this.tableExists(name)) {
             return "ERROR: Table '" + name + "' already exists!";
         } else {
+            table.setName(name);
             this.tables.put(name, table);
             return "";
         }
@@ -36,6 +37,7 @@ public class Database {
             return "ERROR: Table '" + name + "' already exists!";
         } else {
             this.tables.put(name, new Table(columns));
+            this.tables.get(name).setName(name);
             return "";
         }
     }
@@ -47,13 +49,18 @@ public class Database {
             return "ERROR: New table must have columns!";
         }
         Table newTable = new Table();
-        for (String colExpr : cols) {
-            colExpr = colExpr.trim();
-            String[] nameAndType = colExpr.split("\\s+");
-            newTable.addColumn(new Column(nameAndType[0], nameAndType[1]));
+        try {
+            for (String colExpr : cols) {
+                colExpr = colExpr.trim();
+                String[] nameAndType = colExpr.split("\\s+");
+                newTable.addColumn(new Column(nameAndType[0], nameAndType[1]));
+            }
+            newTable.setName(name);
+            this.tables.put(name, newTable);
+            return "";
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
-        this.tables.put(name, newTable);
-        return "";
     }
 
     public String printTable(String name) {
@@ -64,12 +71,16 @@ public class Database {
     }
 
     public String loadTable(String name) {
-        Table newTable = TblFileReader.readTable(name);
-        if (newTable == null) {
-            return "ERROR: File '" + name + ".tbl' doesn't exist!";
-        } else {
-            this.createTable(name, TblFileReader.readTable(name));
-            return "";
+        try {
+            Table newTable = TblFileReader.readTable(name);
+            if (newTable == null) {
+                return "ERROR: File '" + name + ".tbl' doesn't exist!";
+            } else {
+                this.createTable(name, TblFileReader.readTable(name));
+                return "";
+            }
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 

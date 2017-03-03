@@ -2,9 +2,11 @@ package table; /**
  * Created by Arjun on 2/22/2017.
  */
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Column {
 
+    private static final String[] VALID_TYPES = new String[] {"string", "int", "float"};
     private ArrayList<Type> elements;
     private String name;
     private String type;
@@ -20,7 +22,11 @@ public class Column {
     public Column(String name, String type) {
         this.name = name;
         this.elements = new ArrayList<>();
-        this.type = type;
+        if (Arrays.asList(VALID_TYPES).contains(type)) {
+            this.type = type;
+        } else {
+            throw new RuntimeException("ERROR: Unrecognized data type '" + type + "'");
+        }
     }
 
     public Column(String name) {
