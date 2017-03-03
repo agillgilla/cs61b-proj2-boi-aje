@@ -57,9 +57,9 @@ public class TblFileReader {
                 }
             }
         } catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
+            return null;
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            return null;
         }
 
         return table;

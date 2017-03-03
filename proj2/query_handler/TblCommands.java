@@ -122,4 +122,12 @@ public class TblCommands {
         return new Table(leftHalf, rightHalf);
     }
 
+    public static Table joinAll(Table[] tables) {
+        Table joined = tables[0];
+        for (int i = 1; i < tables.length; i++) {
+            joined = TblCommands.join(joined, tables[i]);
+        }
+        return joined;
+    }
+
 }
