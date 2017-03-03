@@ -38,6 +38,12 @@ public class Table {
         }
     }
 
+    public Table(Column[] columns) {
+        for (Column column : columns) {
+            this.columns.put(column.getName(), column);
+        }
+    }
+
     public void addRow(Type[] elements) {
         if (this.getWidth() == 0) {
 
@@ -77,6 +83,24 @@ public class Table {
             }
             System.out.println("");
         }
+    }
+
+    public String print() {
+        String tablePrinted = "";
+        for (String columnName : this.columns.keySet()) {
+            tablePrinted += columnName + " " + this.getColumn(columnName).getType() + ",";
+        }
+        tablePrinted = tablePrinted.substring(0, tablePrinted.length() - 1);
+        tablePrinted += "\n";
+
+        for (int rowIndex = 0; rowIndex < this.getHeight(); rowIndex++) {
+            for (String columnName : this.columns.keySet()) {
+                tablePrinted += this.getColumn(columnName).get(rowIndex) + ",";
+            }
+            tablePrinted = tablePrinted.substring(0, tablePrinted.length() - 1);
+            tablePrinted += "\n";
+        }
+        return tablePrinted;
     }
 
     public Column getColumn(String columnName) {
@@ -198,7 +222,6 @@ public class Table {
         Table T1_T2 = TblCommands.join(T1, T2);
 
         T1_T2.printTable();
-
 
     }
 }
