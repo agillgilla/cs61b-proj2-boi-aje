@@ -94,7 +94,7 @@ public class Parse {
 
         String colSentence = joiner.toString() + " and " + cols[cols.length-1];
         System.out.printf("You are trying to create a table named %s with the columns %s\n", name, colSentence);
-        return "";
+        return this.db.createTable(name, cols);
     }
 
     private  String createSelectedTable(String name, String exprs, String tables, String conds) {
@@ -126,7 +126,7 @@ public class Parse {
         }
 
         System.out.printf("You are trying to insert the row \"%s\" into the table %s\n", m.group(2), m.group(1));
-        return "";
+        return this.db.insert(m.group(1), m.group(2).split(","));
     }
 
     private String printTable(String name) {

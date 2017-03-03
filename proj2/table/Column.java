@@ -40,6 +40,16 @@ public class Column {
         this.elements.add(element);
     }
 
+    public void add(String element) {
+        if (this.getType().equals("string")) {
+            this.elements.add(new StringType(element));
+        } else if (this.getType().equals("int")) {
+            this.elements.add(new IntType(Integer.parseInt(element)));
+        } else if (this.getType().equals("float")) {
+            this.elements.add(new FloatType(Float.parseFloat(element)));
+        }
+    }
+
     public void remove(int index) {
         this.elements.remove(index);
     }

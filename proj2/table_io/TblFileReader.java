@@ -24,6 +24,8 @@ public class TblFileReader {
                     for (String colName : entries) {
                         colName = colName.trim();
                         String[] nameAndType = colName.split("\\s+");
+                        nameAndType[0] = nameAndType[0].trim();
+                        nameAndType[1] = nameAndType[1].trim();
                         switch (nameAndType[1]) {
                             case "string":
                                 table.addColumn(new Column(nameAndType[0], "string"));

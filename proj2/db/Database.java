@@ -23,7 +23,7 @@ public class Database {
     }
 
     public String createTable(String name, Table table) {
-        if (this.tables.containsKey(name)) {
+        if (this.tableExists(name)) {
             return "ERROR: Table '" + name + "' already exists!";
         } else {
             this.tables.put(name, table);
@@ -32,7 +32,7 @@ public class Database {
     }
 
     public String createTable(String name, Column[] columns) {
-        if (this.tables.containsKey(name)) {
+        if (this.tableExists(name)) {
             return "ERROR: Table '" + name + "' already exists!";
         } else {
             this.tables.put(name, new Table(columns));
@@ -40,8 +40,27 @@ public class Database {
         }
     }
 
+    public String createTable(String name, String[] cols) {
+        if (this.tableExists(name)) {
+            return "ERROR: Table '" + name + "' already exists!";
+        } else if (cols.length == 0) {
+            return "ERROR: New table must have columns!";
+        }
+        Table newTable = new Table();
+        for (String colExpr : cols) {
+            colExpr = colExpr.trim();
+            String[] nameAndType = colExpr.split("\\s+");
+            newTable.addColumn(new Column(nameAndType[0], nameAndType[1]));
+        }
+        this.tables.put(name, newTable);
+        return "";
+    }
+
     public String printTable(String name) {
-        return this.tables.get(name).print();
+        if (this.tableExists(name)) {
+            return this.tables.get(name).print();
+        }
+        return "ERROR: Table '" + name + "' doesn't exist!";
     }
 
     public String loadTable(String name) {
@@ -58,7 +77,7 @@ public class Database {
         Table[] tablesToJoin = new Table[tableNames.length];
         int i = 0;
         for (String tableName : tableNames) {
-            if (!this.tables.containsKey(tableName)) {
+            if (!this.tableExists(tableName)) {
                 return "ERROR: Table '" + tableName + "' doesn't exist!";
             }
             tablesToJoin[i] = this.tables.get(tableName);
@@ -68,7 +87,7 @@ public class Database {
     }
 
     public String drop(String name) {
-        if (this.tables.containsKey(name)) {
+        if (this.tableExists(name)) {
             this.tables.remove(name);
             return "";
         }
@@ -78,6 +97,28 @@ public class Database {
     public String store(String name) {
         TblFileWriter.writeTable(this.tables.get(name));
         return "";
+    }
+
+    public String insert(String name, String[] row) {
+        if (this.tableExists(name)) {
+            Table table = this.tables.get(name);
+            if (table.getWidth() != row.length) {
+                return "ERROR: Row dimension must match number of columns!";
+            }
+            try {
+                table.addRow(row);
+                return "";
+            }
+            catch (Exception e) {
+                return "ERROR: Types of row entries must match column types!";
+            }
+        } else {
+            return "ERROR: Table '" + name + "' doesn't exist!";
+        }
+    }
+
+    public boolean tableExists(String name) {
+        return this.tables.containsKey(name);
     }
 
 }

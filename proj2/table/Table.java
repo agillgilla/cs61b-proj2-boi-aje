@@ -57,6 +57,19 @@ public class Table {
         }
     }
 
+    public void addRow(String[] elements) {
+        if (this.getWidth() == 0) {
+
+        } else if (elements.length != this.getWidth()) {
+            throw new RuntimeException("Table rectangularity must be preserved");
+        }
+        int i = 0;
+        for (String columnName : this.columns.keySet()) {
+            this.columns.get(columnName).add(elements[i]);
+            i++;
+        }
+    }
+
     public void removeRow(int index) {
         for (String columnName : this.columns.keySet()) {
             this.columns.get(columnName).remove(index);
