@@ -22,6 +22,7 @@ public class TblFileReader {
 
                 if (firstLine) {
                     for (String colName : entries) {
+                        colName = colName.trim();
                         String[] nameAndType = colName.split("\\s+");
                         switch (nameAndType[1]) {
                             case "string":
@@ -40,6 +41,7 @@ public class TblFileReader {
                 } else {
                     int columnIndex = 0;
                     for (String entry : entries) {
+                        entry = entry.trim();
                         switch (table.getColumnByIndex(columnIndex).getType()) {
                             case "string":
                                 table.getColumnByIndex(columnIndex).add(new StringType(entry));

@@ -210,7 +210,7 @@ public class Table {
 
         T3.printTable();*/
 
-        Table T1 = new Table();
+        /*Table T1 = new Table();
         T1.addColumn(new Column("X", new IntType[] {new IntType(2), new IntType(8)}));
         T1.addColumn(new Column("Y", new IntType[] {new IntType(5), new IntType(3)}));
         T1.addColumn(new Column("Z", new IntType[] {new IntType(4), new IntType(9)}));
@@ -221,7 +221,10 @@ public class Table {
 
         Table T1_T2 = TblCommands.join(T1, T2);
 
-        T1_T2.printTable();
+        T1_T2.printTable();*/
+
+        Table T = TblFileReader.readTable("loadBasic1");
+        T.print();
 
     }
 }
