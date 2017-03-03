@@ -11,7 +11,7 @@ public class FloatType extends Type {
 
     public Type add(Type other) {
         if (this.getClass().getSimpleName() == other.getClass().getSimpleName()) {
-            return new FloatType(this.getValue() + (Float) other.getValue());
+            return new FloatType(this.getValueActual() + (Float) other.getValue());
         } else {
             throw new RuntimeException("Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
@@ -19,7 +19,7 @@ public class FloatType extends Type {
 
     public Type subtract(Type other) {
         if (this.getClass().getSimpleName() == other.getClass().getSimpleName()) {
-            return new FloatType(this.getValue() - (Float) other.getValue());
+            return new FloatType(this.getValueActual() - (Float) other.getValue());
         } else {
             throw new RuntimeException("Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
@@ -27,7 +27,7 @@ public class FloatType extends Type {
 
     public Type multiply(Type other) {
         if (this.getClass().getSimpleName() == other.getClass().getSimpleName()) {
-            return new FloatType(this.getValue() * (Float) other.getValue());
+            return new FloatType(this.getValueActual() * (Float) other.getValue());
         } else {
             throw new RuntimeException("Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
@@ -35,7 +35,7 @@ public class FloatType extends Type {
 
     public Type divide(Type other) {
         if (this.getClass().getSimpleName() == other.getClass().getSimpleName()) {
-            return new FloatType(this.getValue() / (Float) other.getValue());
+            return new FloatType(this.getValueActual() / (Float) other.getValue());
         } else {
             throw new RuntimeException("Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
@@ -49,7 +49,11 @@ public class FloatType extends Type {
         }
     }
 
-    public Float getValue() {
+    public String getValue() {
+        return String.format("%.3f", this.getValueActual());
+    }
+
+    public Float getValueActual() {
         return (Float) super.getValue();
     }
 }
