@@ -35,6 +35,7 @@ public class TblFileReader {
                                 break;
                             case "float":
                                 table.addColumn(new Column(nameAndType[0], "float"));
+                                break;
                             default:
                                 throw new RuntimeException("Unrecognized data type: " + nameAndType[1]);
                         }
@@ -53,6 +54,7 @@ public class TblFileReader {
                                 break;
                             case "float":
                                 table.getColumnByIndex(columnIndex).add(new FloatType(Float.parseFloat(entry)));
+                                break;
                             default:
                                 throw new RuntimeException("Unknown Column Type!");
                         }

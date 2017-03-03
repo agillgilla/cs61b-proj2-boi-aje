@@ -108,8 +108,7 @@ public class Database {
             try {
                 table.addRow(row);
                 return "";
-            }
-            catch (Exception e) {
+            } catch (NumberFormatException e) {
                 return "ERROR: Types of row entries must match column types!";
             }
         } else {
