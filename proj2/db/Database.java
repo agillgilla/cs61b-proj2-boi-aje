@@ -5,6 +5,7 @@ import query_handler.TblCommands;
 import table.Column;
 import table.Table;
 import table_io.TblFileReader;
+import table_io.TblFileWriter;
 
 import java.util.HashMap;
 
@@ -64,6 +65,19 @@ public class Database {
             i++;
         }
         return TblCommands.joinAll(tablesToJoin).print();
+    }
+
+    public String drop(String name) {
+        if (this.tables.containsKey(name)) {
+            this.tables.remove(name);
+            return "";
+        }
+        return "ERROR: Table '" + name + "' doesn't exist!";
+    }
+
+    public String store(String name) {
+        TblFileWriter.writeTable(this.tables.get(name));
+        return "";
     }
 
 }

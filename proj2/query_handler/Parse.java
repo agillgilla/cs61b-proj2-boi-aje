@@ -110,12 +110,12 @@ public class Parse {
 
     private  String storeTable(String name) {
         System.out.printf("You are trying to store the table named %s\n", name);
-        return "";
+        return this.db.store(name);
     }
 
     private  String dropTable(String name) {
         System.out.printf("You are trying to drop the table named %s\n", name);
-        return "";
+        return this.db.drop(name);
     }
 
     private  String insertRow(String expr) {
