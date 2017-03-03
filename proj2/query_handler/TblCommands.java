@@ -41,6 +41,10 @@ public class TblCommands {
             }
         }
 
+        if (leftSharedColumns.getWidth() == rightSharedColumns.getWidth() && leftSharedColumns.getWidth() == 0) {
+            return cartesianJoin(t1, t2);
+        }
+
         boolean foundMatch = false;
         //Table rightSharedColumns = t2;
         //rightSharedColumns.printTable();
@@ -96,6 +100,26 @@ public class TblCommands {
         }
         
         return new Table(leftSharedColumns, leftUnsharedColumns, rightUnsharedColumns);
+    }
+
+    private static Table cartesianJoin(Table t1, Table t2) {
+
+        Table leftHalf = new Table(t1.getColumnNames());
+        Table rightHalf = new Table(t2.getColumnNames());
+
+        for (int i = 0; i < t1.getHeight(); i++) {
+            for (int j = 0; j < t2.getHeight(); j++) {
+                leftHalf.addRow(t1.getRowByIndex(i));
+            }
+        }
+
+        for (int i = 0; i < t1.getHeight(); i++) {
+            for (int j = 0; j < t2.getHeight(); j++) {
+                rightHalf.addRow(t2.getRowByIndex(j));
+            }
+        }
+
+        return new Table(leftHalf, rightHalf);
     }
 
 }

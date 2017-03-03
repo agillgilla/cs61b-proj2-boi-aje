@@ -91,6 +91,16 @@ public class Table {
         }
     }
 
+    public Type[] getRowByIndex(int index) {
+        Type[] row = new Type[this.getWidth()];
+        int i = 0;
+        for (String columnName : this.columns.keySet()) {
+            row[i] = this.getColumn(columnName).get(index);
+            i++;
+        }
+        return row;
+    }
+
     public String[] getColumnNames() {
         String[] columnNames = new String[this.getWidth()];
         int i = 0;
@@ -160,6 +170,7 @@ public class Table {
         Table T1_T2Read = TblFileReader.readTable("join_test");
         T1_T2Read.printTable(); */
 
+        /*
         Table T1 = new Table();
         T1.addColumn(new Column("X", new IntType[] {new IntType(1), new IntType(7), new IntType(1)}));
         T1.addColumn(new Column("Y", new IntType[] {new IntType(7), new IntType(7), new IntType(9)}));
@@ -173,7 +184,20 @@ public class Table {
 
         Table T3 = TblCommands.join(T1, T2);
 
-        T3.printTable();
+        T3.printTable();*/
+
+        Table T1 = new Table();
+        T1.addColumn(new Column("X", new IntType[] {new IntType(2), new IntType(8)}));
+        T1.addColumn(new Column("Y", new IntType[] {new IntType(5), new IntType(3)}));
+        T1.addColumn(new Column("Z", new IntType[] {new IntType(4), new IntType(9)}));
+
+        Table T2 = new Table();
+        T2.addColumn(new Column("A", new IntType[] {new IntType(7), new IntType(2)}));
+        T2.addColumn(new Column("B", new IntType[] {new IntType(0), new IntType(8)}));
+
+        Table T1_T2 = TblCommands.join(T1, T2);
+
+        T1_T2.printTable();
 
 
     }
