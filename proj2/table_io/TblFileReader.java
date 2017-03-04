@@ -19,9 +19,6 @@ public class TblFileReader {
             String line;
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
-                if (tableName.equals("loadMalformed5")) {
-                    System.out.println(line);
-                }
                 String[] entries = line.split(",");
                 if (firstLine) {
                     for (String colName : entries) {
@@ -49,6 +46,9 @@ public class TblFileReader {
                     }
                     firstLine = false;
                 } else {
+                    if (entries.length != table.getWidth()) {
+                        throw new RuntimeException("ERROR: Inconsistent number of columns.");
+                    }
                     int columnIndex = 0;
                     for (String entry : entries) {
                         entry = entry.trim();
