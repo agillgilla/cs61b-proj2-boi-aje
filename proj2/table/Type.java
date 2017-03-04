@@ -21,4 +21,8 @@ public abstract class Type {
         return this.getValue().toString();
     }
 
+    public abstract boolean lessThan(Type other);
+    public abstract boolean greaterThan(Type other);
+
+
 }
