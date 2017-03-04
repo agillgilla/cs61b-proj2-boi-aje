@@ -47,12 +47,14 @@ public class Column {
     }
 
     public void add(String element) {
-        if (this.getType().equals("string")) {
+        if (element.substring(0, 1).equals("'") && element.substring(element.length() - 1).equals("'")) {
             this.elements.add(new StringType(element));
-        } else if (this.getType().equals("int")) {
-            this.elements.add(new IntType(Integer.parseInt(element)));
-        } else if (this.getType().equals("float")) {
+        } else if (element.contains(".")) {
             this.elements.add(new FloatType(Float.parseFloat(element)));
+        } else if (element.matches("[0-9]+")) {
+            this.elements.add(new IntType(Integer.parseInt(element)));
+        } else {
+            throw new RuntimeException("ERROR: Unrecognized data type of: '" + element + "'");
         }
     }
 

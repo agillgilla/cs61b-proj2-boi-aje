@@ -122,11 +122,15 @@ public class Parse {
         Matcher m = INSERT_CLS.matcher(expr);
         if (!m.matches()) {
             System.err.printf("Malformed insert: %s\n", expr);
-            return "ERROR";
+            return "ERROR: Malformed insert command.";
         }
 
         System.out.printf("You are trying to insert the row \"%s\" into the table %s\n", m.group(2), m.group(1));
-        return this.db.insert(m.group(1), m.group(2).split(","));
+        try {
+            return this.db.insert(m.group(1), m.group(2).split(","));
+        } catch (RuntimeException e) {
+            return e.getMessage();
+        }
     }
 
     private String printTable(String name) {
@@ -138,7 +142,7 @@ public class Parse {
         Matcher m = SELECT_CLS.matcher(expr);
         if (!m.matches()) {
             System.err.printf("Malformed select: %s\n", expr);
-            return "ERROR";
+            return "ERROR: Malformed select query.";
         }
 
         return select(m.group(1), m.group(2), m.group(3));
