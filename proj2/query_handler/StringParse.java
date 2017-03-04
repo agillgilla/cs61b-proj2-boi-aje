@@ -15,7 +15,7 @@ public class StringParse {
     public static boolean isFloat(String integerFloat){
         try {
             Float.parseFloat(integerFloat);
-            return true;
+            return integerFloat.contains(".");
         } catch (NumberFormatException nfe) {
             return false;
         }
