@@ -48,7 +48,7 @@ public class Table {
         if (this.getWidth() == 0) {
 
         } else if (elements.length != this.getWidth()) {
-            throw new RuntimeException("Table rectangularity must be preserved");
+            throw new RuntimeException("ERROR: Table rectangularity must be preserved");
         }
         int i = 0;
         for (String columnName : this.columns.keySet()) {
@@ -61,7 +61,7 @@ public class Table {
         if (this.getWidth() == 0) {
 
         } else if (elements.length != this.getWidth()) {
-            throw new RuntimeException("Table rectangularity must be preserved");
+            throw new RuntimeException("ERROR: Table rectangularity must be preserved");
         }
         int i = 0;
         for (String columnName : this.columns.keySet()) {
@@ -80,7 +80,7 @@ public class Table {
         if (this.getHeight() == 0) {
 
         } else if (col.size() != this.getHeight()) {
-            throw new RuntimeException("Table rectangularity must be preserved");
+            throw new RuntimeException("ERROR: Table rectangularity must be preserved");
         }
         this.columns.put(col.getName(), col);
     }
@@ -122,7 +122,7 @@ public class Table {
 
     public Column getColumnByIndex(int index) {
         if (index >= this.getWidth()) {
-            throw new RuntimeException("Index out of bounds of table columns.");
+            throw new RuntimeException("ERROR: Index out of bounds of table columns.");
         } else {
             return this.columns.get(this.columns.keySet().toArray()[index]);
         }
