@@ -19,9 +19,6 @@ public class TblFileReader {
             String line;
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
-                if (tableName.equals("loadMalformed2")) {
-                    System.out.println(line);
-                }
                 String[] entries = line.split(",");
                 if (firstLine) {
                     for (String colName : entries) {
@@ -52,7 +49,8 @@ public class TblFileReader {
                     int columnIndex = 0;
                     for (String entry : entries) {
                         entry = entry.trim();
-                        switch (table.getColumnByIndex(columnIndex).getType()) {
+                        table.getColumnByIndex(columnIndex).add(entry);
+                        /*switch (table.getColumnByIndex(columnIndex).getType()) {
                             case "string":
                                 table.getColumnByIndex(columnIndex).add(new StringType(entry));
                                 break;
@@ -64,7 +62,7 @@ public class TblFileReader {
                                 break;
                             default:
                                 throw new RuntimeException("ERROR: Unknown Column Type!");
-                        }
+                        }*/
                         columnIndex++;
                     }
                 }
