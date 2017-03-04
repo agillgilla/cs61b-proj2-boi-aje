@@ -51,7 +51,7 @@ public class Column {
             this.elements.add(new StringType(element));
         } else if (element.contains(".")) {
             this.elements.add(new FloatType(Float.parseFloat(element)));
-        } else if (element.matches("[0-9]+\\-")) {
+        } else if (element.matches("[0-9]+\\-") || element.matches("[0-9]+")) {
             this.elements.add(new IntType(Integer.parseInt(element)));
         } else {
             throw new RuntimeException("ERROR: Unrecognized data type of: '" + element + "'");
