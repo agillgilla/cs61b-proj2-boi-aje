@@ -151,7 +151,7 @@ public class Parse {
     private String select(String exprs, String tables, String conds) {
         System.out.printf("You are trying to select these expressions:" +
                 " '%s' from the join of these tables: '%s', filtered by these conditions: '%s'\n", exprs, tables, conds);
-        if (exprs.equals("*") && conds.equals("'null'")) {
+        if (exprs.equals("*") && conds == null) {
             String[] tablesToJoin = tables.split(",");
             return this.db.join(tablesToJoin);
         } else {
