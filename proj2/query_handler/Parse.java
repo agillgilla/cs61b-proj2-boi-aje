@@ -39,7 +39,7 @@ public class Parse {
                                  INSERT_CLS  = Pattern.compile("(\\S+)\\s+values\\s+(.+?" +
                                                "\\s*(?:,\\s*.+?\\s*)*)");
 
-    public  void main(String[] args) {
+    public void main(String[] args) {
         if (args.length != 1) {
             System.err.println("Expected a single query argument");
             return;
@@ -48,11 +48,11 @@ public class Parse {
         eval(args[0]);
     }
 
-    public  String parse(String query) {
+    public String parse(String query) {
         return eval(query);
     }
 
-    private  String eval(String query) {
+    private String eval(String query) {
         Matcher m;
         if ((m = CREATE_CMD.matcher(query)).matches()) {
              return createTable(m.group(1));
@@ -70,11 +70,11 @@ public class Parse {
              return select(m.group(1));
         } else {
             System.err.printf("Malformed query: %s\n", query);
-            return "ERROR";
+            return "ERROR: Malformed query: " + query;
         }
     }
 
-    private  String createTable(String expr) {
+    private String createTable(String expr) {
         Matcher m;
         if ((m = CREATE_NEW.matcher(expr)).matches()) {
             return createNewTable(m.group(1), m.group(2).split(COMMA));
@@ -82,11 +82,11 @@ public class Parse {
             return createSelectedTable(m.group(1), m.group(2), m.group(3), m.group(4));
         } else {
             System.err.printf("Malformed create: %s\n", expr);
-            return "ERROR";
+            return "ERROR: Malformed create: " + expr;
         }
     }
 
-    private  String createNewTable(String name, String[] cols) {
+    private String createNewTable(String name, String[] cols) {
         StringJoiner joiner = new StringJoiner(", ");
         for (int i = 0; i < cols.length-1; i++) {
             joiner.add(cols[i]);
@@ -97,32 +97,32 @@ public class Parse {
         return this.db.createTable(name, cols);
     }
 
-    private  String createSelectedTable(String name, String exprs, String tables, String conds) {
+    private String createSelectedTable(String name, String exprs, String tables, String conds) {
         System.out.printf("You are trying to create a table named %s by selecting these expressions:" +
                 " '%s' from the join of these tables: '%s', filtered by these conditions: '%s'\n", name, exprs, tables, conds);
         return "";
     }
 
-    private  String loadTable(String name) {
+    private String loadTable(String name) {
         System.out.printf("You are trying to load the table named %s\n", name);
         return this.db.loadTable(name);
     }
 
-    private  String storeTable(String name) {
+    private String storeTable(String name) {
         System.out.printf("You are trying to store the table named %s\n", name);
         return this.db.store(name);
     }
 
-    private  String dropTable(String name) {
+    private String dropTable(String name) {
         System.out.printf("You are trying to drop the table named %s\n", name);
         return this.db.drop(name);
     }
 
-    private  String insertRow(String expr) {
+    private String insertRow(String expr) {
         Matcher m = INSERT_CLS.matcher(expr);
         if (!m.matches()) {
             System.err.printf("Malformed insert: %s\n", expr);
-            return "ERROR: Malformed insert command.";
+            return "ERROR: Malformed insert: " + expr;
         }
 
         System.out.printf("You are trying to insert the row \"%s\" into the table %s\n", m.group(2), m.group(1));
@@ -142,16 +142,16 @@ public class Parse {
         Matcher m = SELECT_CLS.matcher(expr);
         if (!m.matches()) {
             System.err.printf("Malformed select: %s\n", expr);
-            return "ERROR: Malformed select query.";
+            return "ERROR: Malformed select: " + expr;
         }
 
         return select(m.group(1), m.group(2), m.group(3));
     }
 
-    private  String select(String exprs, String tables, String conds) {
+    private String select(String exprs, String tables, String conds) {
         System.out.printf("You are trying to select these expressions:" +
                 " '%s' from the join of these tables: '%s', filtered by these conditions: '%s'\n", exprs, tables, conds);
-        if (exprs.equals("*")) {
+        if (exprs.equals("*") && conds.equals("null")) {
             String[] tablesToJoin = tables.split(",");
             return this.db.join(tablesToJoin);
         } else {
