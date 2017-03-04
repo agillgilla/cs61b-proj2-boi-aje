@@ -24,5 +24,6 @@ public abstract class Type {
     public abstract boolean lessThan(Type other);
     public abstract boolean greaterThan(Type other);
 
+    public abstract Object getValueActual();
 
 }

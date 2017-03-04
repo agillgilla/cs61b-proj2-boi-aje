@@ -15,11 +15,11 @@ public class IntType extends Type {
     public Type add(Type other) {
         if (Arrays.asList(VALID_TYPES).contains(other.getClass().getSimpleName())) {
             if (other.getClass().getSimpleName().equals("FloatType")) {
-                return new FloatType((this.getValue() + (Float) other.getValue()));
+                return new FloatType((this.getValueActual() + (Float) other.getValueActual()));
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.add(this);
             } else {
-                return new IntType(this.getValue() + (Integer) other.getValue());
+                return new IntType(this.getValueActual() + (Integer) other.getValueActual());
             }
         } else {
             throw new RuntimeException("Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
@@ -29,11 +29,11 @@ public class IntType extends Type {
     public Type subtract(Type other) {
         if (Arrays.asList(VALID_TYPES).contains(other.getClass().getSimpleName())) {
             if (other.getClass().getSimpleName().equals("FloatType")) {
-                return new FloatType((this.getValue() - (Float) other.getValue()));
+                return new FloatType((this.getValueActual() - (Float) other.getValueActual()));
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.subtract(this);
             } else {
-                return new IntType(this.getValue() - (Integer) other.getValue());
+                return new IntType(this.getValueActual() - (Integer) other.getValueActual());
             }
         } else {
             throw new RuntimeException("Cannot use - operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
@@ -43,11 +43,11 @@ public class IntType extends Type {
     public Type multiply(Type other) {
         if (Arrays.asList(VALID_TYPES).contains(other.getClass().getSimpleName())) {
             if (other.getClass().getSimpleName().equals("FloatType")) {
-                return new FloatType((this.getValue() * (Float) other.getValue()));
+                return new FloatType((this.getValueActual() * (Float) other.getValueActual()));
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.multiply(this);
             } else {
-                return new IntType(this.getValue() * (Integer) other.getValue());
+                return new IntType(this.getValueActual() * (Integer) other.getValueActual());
             }
         } else {
             throw new RuntimeException("Cannot use * operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
@@ -57,11 +57,11 @@ public class IntType extends Type {
     public Type divide(Type other) {
         if (Arrays.asList(VALID_TYPES).contains(other.getClass().getSimpleName())) {
             if (other.getClass().getSimpleName().equals("FloatType")) {
-                return new FloatType((this.getValue() / (Float) other.getValue()));
+                return new FloatType((this.getValueActual() / (Float) other.getValueActual()));
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.divide(this);
             } else {
-                return new IntType(this.getValue() / (Integer) other.getValue());
+                return new IntType(this.getValueActual() / (Integer) other.getValueActual());
             }
         } else {
             throw new RuntimeException("Cannot use / operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
@@ -72,18 +72,18 @@ public class IntType extends Type {
         if (!other.getClass().getSimpleName().equals("FloatType") && !other.getClass().getSimpleName().equals("IntType")) {
             return false;
         } else {
-            return (this.getValue().equals((Integer) other.getValue()));
+            return (this.getValueActual().equals((Integer) other.getValueActual()));
         }
     }
 
     public boolean lessThan(Type other) {
         if (Arrays.asList(VALID_TYPES).contains(other.getClass().getSimpleName())) {
             if (other.getClass().getSimpleName().equals("FloatType")) {
-                return this.getValue() < (Float) other.getValue();
+                return this.getValueActual() < (Float) other.getValueActual();
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.greaterThan(this);
             } else {
-                return this.getValue() < (Integer) other.getValue();
+                return this.getValueActual() < (Integer) other.getValueActual();
             }
         } else {
             throw new RuntimeException("Cannot use < operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
@@ -93,11 +93,11 @@ public class IntType extends Type {
     public boolean greaterThan(Type other) {
         if (Arrays.asList(VALID_TYPES).contains(other.getClass().getSimpleName())) {
             if (other.getClass().getSimpleName().equals("FloatType")) {
-                return this.getValue() > (Float) other.getValue();
+                return this.getValueActual() > (Float) other.getValueActual();
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.lessThan(this);
             } else {
-                return this.getValue() > (Integer) other.getValue();
+                return this.getValueActual() > (Integer) other.getValueActual();
             }
         } else {
             throw new RuntimeException("Cannot use > operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
@@ -106,6 +106,10 @@ public class IntType extends Type {
 
     public Integer getValue() {
         return (Integer) super.getValue();
+    }
+
+    public Integer getValueActual() {
+        return this.getValue();
     }
 
 }

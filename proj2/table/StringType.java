@@ -71,4 +71,8 @@ public class StringType extends Type {
     public String getValue() {
         return (String) super.getValue();
     }
+
+    public String getValueActual() {
+        return this.getValue();
+    }
 }

@@ -46,7 +46,11 @@ public class NanType extends Type {
         }
     }
 
-    public Integer getValue() {
-        return (Integer) super.getValue();
+    public String getValue() {
+        return "NaN";
+    }
+
+    public String getValueActual() {
+        return this.getValue();
     }
 }
