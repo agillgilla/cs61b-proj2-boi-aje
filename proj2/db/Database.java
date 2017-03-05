@@ -85,16 +85,24 @@ public class Database {
     }
 
     public String join(String[] tableNames) {
+        try {
+            return this.joinTable(tableNames).print();
+        } catch (RuntimeException e) {
+            return e.getMessage();
+        }
+    }
+
+    public Table joinTable(String[] tableNames) {
         Table[] tablesToJoin = new Table[tableNames.length];
         int i = 0;
         for (String tableName : tableNames) {
             if (!this.tableExists(tableName)) {
-                return "ERROR: Table '" + tableName + "' doesn't exist!";
+                throw new RuntimeException("ERROR: Table '" + tableName + "' doesn't exist!");
             }
             tablesToJoin[i] = this.tables.get(tableName);
             i++;
         }
-        return TblCommands.joinAll(tablesToJoin).print();
+        return TblCommands.joinAll(tablesToJoin);
     }
 
     public String drop(String name) {
@@ -133,6 +141,11 @@ public class Database {
         } else {
             return "ERROR: Table '" + name + "' doesn't exist!";
         }
+    }
+
+    public String select(String exprs, String tables, String conds) {
+        Table joined = this.joinTable(tables.split(","));
+        return joined;
     }
 
     public boolean tableExists(String name) {

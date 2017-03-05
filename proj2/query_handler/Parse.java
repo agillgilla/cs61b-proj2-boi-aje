@@ -155,7 +155,7 @@ public class Parse {
             String[] tablesToJoin = tables.split(",");
             return this.db.join(tablesToJoin);
         } else {
-            return "";
+            return this.db.select(exprs, tables, conds);
         }
     }
 }
