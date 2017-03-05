@@ -151,13 +151,17 @@ public class Parse {
     private String select(String exprs, String tables, String conds) {
         System.out.printf("You are trying to select these expressions:" +
                 " '%s' from the join of these tables: '%s', filtered by these conditions: '%s'\n", exprs, tables, conds);
-        if (exprs.equals("*") && conds == null) {
-            String[] tablesToJoin = tables.split(",");
-            return this.db.join(tablesToJoin);
-        } else if (conds == null) {
-            return this.db.selectPrint(exprs, tables, conds);
-        } else {
-            return "OOPS! I CAN'T HANDLE THIS!";
+        try {
+            if (exprs.equals("*") && conds == null) {
+                String[] tablesToJoin = tables.split(",");
+                return this.db.join(tablesToJoin);
+            } else if (conds == null) {
+                return this.db.selectPrint(exprs, tables, conds);
+            } else {
+                return "OOPS! I CAN'T HANDLE THIS!";
+            }
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 }

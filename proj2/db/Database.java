@@ -146,7 +146,7 @@ public class Database {
     }
 
     public Table select(String exprsList, String tablesList, String condsList) {
-        Table joined = this.joinTable(tablesList.split(","));
+
         Table colExprTable = new Table();
 
         String[] expressions = exprsList.split(",");
@@ -162,6 +162,7 @@ public class Database {
             String operators = expr.replaceAll("[^+-/*]", "");
 
             if (operators.length() == 0) {
+                Table joined = this.joinTable(tablesList.split(","));
                 colExprTable.addColumn(joined.getColumn(exprReduced.trim()));
             } else if (operators.length() == 1) {
                 int indexOfOperator = exprReduced.indexOf(operators);
@@ -173,10 +174,12 @@ public class Database {
                 String secondColName = exprReduced.substring(indexOfOperator + 1, indexOfAs).trim();
                 String aliasColName = exprReduced.substring(indexOfAs + 4).trim();
 
-                if (firstColName.equals("") || secondColName.equals("") || aliasColName.equals("")) {
+                if (firstColName.equals("")
+                        || secondColName.equals("")
+                        || aliasColName.equals("")) {
                     throw new RuntimeException("ERROR: Malformed select query!");
                 }
-
+                Table joined = this.joinTable(tablesList.split(","));
                 switch (operators) {
                     case "+":
                         colExprTable.addColumn(
