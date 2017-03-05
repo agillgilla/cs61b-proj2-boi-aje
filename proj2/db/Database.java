@@ -169,8 +169,8 @@ public class Database {
                 if (indexOfAs == -1 || indexOfOperator == -1) {
                     throw new RuntimeException("ERROR: Malformed select query!");
                 }
-                String firstColName = exprReduced.substring(0, indexOfOperator);
-                String secondColName = exprReduced.substring(indexOfOperator + 1, indexOfAs);
+                String firstColName = exprReduced.substring(0, indexOfOperator).trim();
+                String secondColName = exprReduced.substring(indexOfOperator + 1, indexOfAs).trim();
                 String aliasColName = exprReduced.substring(indexOfAs + 4).trim();
 
                 switch (operators) {
