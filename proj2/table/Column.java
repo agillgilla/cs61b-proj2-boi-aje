@@ -51,6 +51,7 @@ public class Column {
     public void add(String element) {
         if (element.equals("NOVALUE")) {
             this.elements.add(new NoValType(this.getType()));
+            return;
         }
 
         if (element.substring(0, 1).equals("'") && element.substring(element.length() - 1).equals("'")) {
