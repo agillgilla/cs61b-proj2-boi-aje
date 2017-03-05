@@ -55,7 +55,7 @@ public class NoValType extends Type {
             case "float":
                 return new FloatType(0.0f);
             default:
-                throw new RuntimeException("Unknown NOVALUE type!");
+                throw new RuntimeException("ERROR: Unknown NOVALUE type!");
         }
     }
 
@@ -68,7 +68,7 @@ public class NoValType extends Type {
             case "float":
                 return 0.0f;
             default:
-                throw new RuntimeException("Unknown NOVALUE type!");
+                throw new RuntimeException("ERROR: Unknown NOVALUE type!");
         }
     }
 

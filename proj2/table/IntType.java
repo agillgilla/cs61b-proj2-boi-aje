@@ -22,7 +22,7 @@ public class IntType extends Type {
                 return new IntType(this.getValueActual() + (Integer) other.getValueActual());
             }
         } else {
-            throw new RuntimeException("Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+            throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
     }
 
@@ -36,7 +36,7 @@ public class IntType extends Type {
                 return new IntType(this.getValueActual() - (Integer) other.getValueActual());
             }
         } else {
-            throw new RuntimeException("Cannot use - operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+            throw new RuntimeException("ERROR: Cannot use - operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
     }
 
@@ -50,7 +50,7 @@ public class IntType extends Type {
                 return new IntType(this.getValueActual() * (Integer) other.getValueActual());
             }
         } else {
-            throw new RuntimeException("Cannot use * operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+            throw new RuntimeException("ERROR: Cannot use * operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
     }
 
@@ -64,7 +64,7 @@ public class IntType extends Type {
                 return new IntType(this.getValueActual() / (Integer) other.getValueActual());
             }
         } else {
-            throw new RuntimeException("Cannot use / operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+            throw new RuntimeException("ERROR: Cannot use / operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
     }
 
@@ -86,7 +86,7 @@ public class IntType extends Type {
                 return this.getValueActual() < (Integer) other.getValueActual();
             }
         } else {
-            throw new RuntimeException("Cannot use < operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+            throw new RuntimeException("ERROR: Cannot use < operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
     }
 
@@ -100,7 +100,7 @@ public class IntType extends Type {
                 return this.getValueActual() > (Integer) other.getValueActual();
             }
         } else {
-            throw new RuntimeException("Cannot use > operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+            throw new RuntimeException("ERROR: Cannot use > operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
     }
 

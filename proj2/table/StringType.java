@@ -20,7 +20,7 @@ public class StringType extends Type {
                 return new StringType(this.getValue().substring(0, this.getValue().length() - 1) + ((String) other.getValue()).substring(1));
             }
         } else {
-            throw new RuntimeException("Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+            throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
     }
 
@@ -52,7 +52,7 @@ public class StringType extends Type {
                 return ((String) this.getValue()).compareTo((String) other.getValue()) < 0;
             }
         } else {
-            throw new RuntimeException("Cannot use < operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+            throw new RuntimeException("ERROR: Cannot use < operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
     }
 
@@ -64,7 +64,7 @@ public class StringType extends Type {
                 return ((String) this.getValue()).compareTo((String) other.getValue()) > 0;
             }
         } else {
-            throw new RuntimeException("Cannot use > operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+            throw new RuntimeException("ERROR: Cannot use > operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
         }
     }
 
