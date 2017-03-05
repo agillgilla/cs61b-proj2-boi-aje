@@ -145,7 +145,7 @@ public class Database {
 
     public String select(String exprs, String tables, String conds) {
         Table joined = this.joinTable(tables.split(","));
-        return joined;
+        return joined.print();
     }
 
     public boolean tableExists(String name) {
