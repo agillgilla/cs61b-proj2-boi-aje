@@ -17,7 +17,7 @@ public class StringType extends Type {
             if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.add(this);
             } else {
-                return new StringType(this.getValue() + (String) other.getValue());
+                return new StringType(this.getValue().substring(0, this.getValue().length() - 1) + ((String) other.getValue()).substring(1));
             }
         } else {
             throw new RuntimeException("Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());

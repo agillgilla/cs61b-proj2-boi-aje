@@ -226,7 +226,8 @@ public class Database {
         return select(exprsList, tablesList, condsList).print();
     }
 
-    public String createTableSelect(String name, String exprsList, String tablesList, String condsList) {
+    public String createTableSelect(String name, String exprsList,
+                                    String tablesList, String condsList) {
         this.tables.put(name, select(exprsList, tablesList, condsList));
         return "";
     }
