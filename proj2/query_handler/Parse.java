@@ -100,7 +100,7 @@ public class Parse {
     private String createSelectedTable(String name, String exprs, String tables, String conds) {
         System.out.printf("You are trying to create a table named %s by selecting these expressions:" +
                 " '%s' from the join of these tables: '%s', filtered by these conditions: '%s'\n", name, exprs, tables, conds);
-        return "";
+        return this.db.createTableSelect(name, exprs, tables, conds);
     }
 
     private String loadTable(String name) {
@@ -155,7 +155,7 @@ public class Parse {
             String[] tablesToJoin = tables.split(",");
             return this.db.join(tablesToJoin);
         } else if (conds == null) {
-            return this.db.select(exprs, tables, conds);
+            return this.db.selectPrint(exprs, tables, conds);
         } else {
             return "OOPS! I CAN'T HANDLE THIS!";
         }

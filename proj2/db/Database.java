@@ -145,7 +145,7 @@ public class Database {
         }
     }
 
-    public String select(String exprsList, String tablesList, String condsList) {
+    public Table select(String exprsList, String tablesList, String condsList) {
         Table joined = this.joinTable(tablesList.split(","));
         Table colExprTable = new Table();
 
@@ -219,7 +219,16 @@ public class Database {
         }
 
 
-        return colExprTable.print();
+        return colExprTable;
+    }
+
+    public String selectPrint(String exprsList, String tablesList, String condsList) {
+        return select(exprsList, tablesList, condsList).print();
+    }
+
+    public String createTableSelect(String name, String exprsList, String tablesList, String condsList) {
+        this.tables.put(name, select(exprsList, tablesList, condsList));
+        return "";
     }
 
     public boolean tableExists(String name) {
