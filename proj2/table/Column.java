@@ -111,7 +111,7 @@ public class Column {
     }
 
     public Column addColumn(Column other, String name) {
-        Column added = new Column(name, this.getType());
+        Column added = new Column(name);
         sizeMatchCheck(other);
         for (int i = 0; i < this.size(); i++) {
             added.add(this.get(i).add(other.get(i)));
@@ -120,7 +120,7 @@ public class Column {
     }
 
     public Column subtractColumn(Column other, String name) {
-        Column subtracted = new Column(name, this.getType());
+        Column subtracted = new Column(name);
         sizeMatchCheck(other);
         for (int i = 0; i < this.size(); i++) {
             subtracted.add(this.get(i).subtract(other.get(i)));
@@ -129,7 +129,7 @@ public class Column {
     }
 
     public Column multiplyColumn(Column other, String name) {
-        Column multiplied = new Column(name, this.getType());
+        Column multiplied = new Column(name);
         sizeMatchCheck(other);
         for (int i = 0; i < this.size(); i++) {
             multiplied.add(this.get(i).multiply(other.get(i)));
@@ -138,7 +138,7 @@ public class Column {
     }
 
     public Column divideColumn(Column other, String name) {
-        Column divided = new Column(name, this.getType());
+        Column divided = new Column(name);
         sizeMatchCheck(other);
         for (int i = 0; i < this.size(); i++) {
             divided.add(this.get(i).divide(other.get(i)));

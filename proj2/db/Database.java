@@ -173,6 +173,10 @@ public class Database {
                 String secondColName = exprReduced.substring(indexOfOperator + 1, indexOfAs).trim();
                 String aliasColName = exprReduced.substring(indexOfAs + 4).trim();
 
+                if (firstColName.equals("") || secondColName.equals("") || aliasColName.equals("")) {
+                    throw new RuntimeException("ERROR: Malformed select query!");
+                }
+
                 switch (operators) {
                     case "+":
                         colExprTable.addColumn(
