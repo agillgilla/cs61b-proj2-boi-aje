@@ -210,19 +210,6 @@ public class Database {
                 throw new RuntimeException("ERROR: Cannot have multiple operators!");
             }
 
-            /*for (int j = 0; j < OPERATORS.length; j++) {
-                if (expr.contains(OPERATORS[j])) {
-                    hasOperator = true;
-                }
-            }
-
-            if () {
-                colExprTable.addColumn(joined.getColumn(tokens[0]));
-            } else if (tokens.length == 5) {*/
-
-
-
-
         }
 
 
