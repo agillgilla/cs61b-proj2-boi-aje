@@ -91,7 +91,7 @@ public class FloatType extends Type {
                     }
                     return new FloatType(this.getValueActual() / (Integer) other.getValueActual());
                 } else if (other.getType().equals("float")) {
-                    if ((Float) other.getValueActual() == 0) {
+                    if ((Float) other.getValueActual() == 0.0f) {
                         return new NanType("float");
                     }
                     return new FloatType(this.getValueActual() / (Float) other.getValueActual());

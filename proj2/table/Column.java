@@ -101,6 +101,12 @@ public class Column {
                 case "FloatType":
                     this.type = "float";
                     break;
+                case "NanType":
+                    this.type = this.elements.get(0).getType();
+                    break;
+                case "NoValType":
+                    this.type = this.elements.get(0).getType();
+                    break;
                 default:
                     throw new RuntimeException("Unrecognized column type");
             }
