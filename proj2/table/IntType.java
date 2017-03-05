@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class IntType extends Type {
 
-    private static final String[] VALID_TYPES = new String[] {"IntType", "FloatType", "NanType"};
+    private static final String[] VALID_TYPES = new String[] {"IntType", "FloatType", "NanType", "NoValType"};
     public IntType(Integer value) {
         this.value = value;
     }
@@ -18,6 +18,8 @@ public class IntType extends Type {
                 return new FloatType((this.getValueActual() + (Float) other.getValueActual()));
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.add(this);
+            }  else if (other.getClass().getSimpleName().equals("NoValType")) {
+                return new IntType(this.getValueActual() + (Integer) other.getValueActual());
             } else {
                 return new IntType(this.getValueActual() + (Integer) other.getValueActual());
             }
@@ -32,6 +34,8 @@ public class IntType extends Type {
                 return new FloatType((this.getValueActual() - (Float) other.getValueActual()));
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.subtract(this);
+            } else if (other.getClass().getSimpleName().equals("NoValType")) {
+                return new IntType(this.getValueActual() - (Integer) other.getValueActual());
             } else {
                 return new IntType(this.getValueActual() - (Integer) other.getValueActual());
             }
@@ -46,6 +50,8 @@ public class IntType extends Type {
                 return new FloatType((this.getValueActual() * (Float) other.getValueActual()));
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.multiply(this);
+            } else if (other.getClass().getSimpleName().equals("NoValType")) {
+                return new IntType(this.getValueActual() * (Integer) other.getValueActual());
             } else {
                 return new IntType(this.getValueActual() * (Integer) other.getValueActual());
             }
@@ -60,6 +66,8 @@ public class IntType extends Type {
                 return new FloatType((this.getValueActual() / (Float) other.getValueActual()));
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.divide(this);
+            } else if (other.getClass().getSimpleName().equals("NoValType")) {
+                return new IntType(this.getValueActual() / (Integer) other.getValueActual());
             } else {
                 return new IntType(this.getValueActual() / (Integer) other.getValueActual());
             }
@@ -82,6 +90,8 @@ public class IntType extends Type {
                 return this.getValueActual() < (Float) other.getValueActual();
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.greaterThan(this);
+            } else if (other.getClass().getSimpleName().equals("NoValType")) {
+                return other.greaterThan(this);
             } else {
                 return this.getValueActual() < (Integer) other.getValueActual();
             }
@@ -95,6 +105,8 @@ public class IntType extends Type {
             if (other.getClass().getSimpleName().equals("FloatType")) {
                 return this.getValueActual() > (Float) other.getValueActual();
             } else if (other.getClass().getSimpleName().equals("NanType")) {
+                return other.lessThan(this);
+            } else if (other.getClass().getSimpleName().equals("NoValType")) {
                 return other.lessThan(this);
             } else {
                 return this.getValueActual() > (Integer) other.getValueActual();
