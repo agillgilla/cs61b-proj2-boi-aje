@@ -154,8 +154,10 @@ public class Parse {
         if (exprs.equals("*") && conds == null) {
             String[] tablesToJoin = tables.split(",");
             return this.db.join(tablesToJoin);
-        } else {
+        } else if (conds == null) {
             return this.db.select(exprs, tables, conds);
+        } else {
+            return "OOPS! I CAN'T HANDLE THIS!";
         }
     }
 }

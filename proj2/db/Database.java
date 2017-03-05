@@ -7,7 +7,6 @@ import table.Table;
 import table_io.TblFileReader;
 import table_io.TblFileWriter;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Database {
@@ -147,53 +146,76 @@ public class Database {
     }
 
     public String select(String exprsList, String tablesList, String condsList) {
-        Table joined = this.joinTable(tablesList.split( ","));
+        Table joined = this.joinTable(tablesList.split(","));
         Table colExprTable = new Table();
 
         String[] expressions = exprsList.split(",");
-        for (int i = 0; i < expressions.length; i++) {
+        /*for (int i = 0; i < expressions.length; i++) {
             expressions[i] = expressions[i].trim().replaceAll(" +", " ");
-        }
+        }*/
 
-        //String[][] exprTokens = new String[expressions.length][];
 
         for (int i = 0; i < expressions.length; i++) {
-            String[] tokens = expressions[i].split(" ");
-            if (tokens.length == 1) {
-                colExprTable.addColumn(joined.getColumn(tokens[0]));
-            } else if (tokens.length == 5) {
-                if (joined.containsColumn(tokens[0]) &&
-                        joined.containsColumn(tokens[2]) &&
-                        Arrays.asList(OPERATORS).contains(tokens[1]) &&
-                        tokens[3].equals("as")) {
+            String expr = expressions[i];
+            String exprReduced = expr.trim().replaceAll(" +", " ");
+            expr = expr.replaceAll("\\s+", "");
+            String operators = expr.replaceAll("[^+-/*]", "");
 
-                    switch (tokens[1]) {
-                        case "+":
-                            colExprTable.addColumn(
-                                    joined.getColumn(tokens[0]).addColumn(joined.getColumn(tokens[2]), tokens[4]));
-                            break;
-                        case "-":
-                            colExprTable.addColumn(
-                                    joined.getColumn(tokens[0]).subtractColumn(joined.getColumn(tokens[2]), tokens[4]));
-                            break;
-                        case "*":
-                            colExprTable.addColumn(
-                                    joined.getColumn(tokens[0]).multiplyColumn(joined.getColumn(tokens[2]), tokens[4]));
-                            break;
-                        case "/":
-                            colExprTable.addColumn(
-                                    joined.getColumn(tokens[0]).divideColumn(joined.getColumn(tokens[2]), tokens[4]));
-                            break;
-                        default:
-                            throw new RuntimeException("ERROR:  Invalid operator + '" + tokens[1] + "'!");
-                    }
-
-                } else {
-                    throw new RuntimeException("ERROR: Invalid column expression: '" + expressions[i] + "'!");
+            if (operators.length() == 0) {
+                colExprTable.addColumn(joined.getColumn(exprReduced.trim()));
+            } else if (operators.length() == 1) {
+                int indexOfOperator = exprReduced.indexOf(operators);
+                int indexOfAs = exprReduced.indexOf(" as ");
+                if (indexOfAs == -1 || indexOfOperator == -1) {
+                    throw new RuntimeException("ERROR: Malformed select query!");
                 }
+                String firstColName = exprReduced.substring(0, indexOfOperator);
+                String secondColName = exprReduced.substring(indexOfOperator + 1, indexOfAs);
+                String aliasColName = exprReduced.substring(indexOfAs + 4).trim();
+
+                switch (operators) {
+                    case "+":
+                        colExprTable.addColumn(
+                                joined.getColumn(firstColName).
+                                addColumn(joined.getColumn(secondColName), aliasColName));
+                        break;
+                    case "-":
+                        colExprTable.addColumn(
+                                joined.getColumn(firstColName).
+                                subtractColumn(joined.getColumn(secondColName), aliasColName));
+                        break;
+                    case "*":
+                        colExprTable.addColumn(
+                                joined.getColumn(firstColName).
+                                multiplyColumn(joined.getColumn(secondColName), aliasColName));
+                        break;
+                    case "/":
+                        colExprTable.addColumn(
+                                joined.getColumn(firstColName).
+                                divideColumn(joined.getColumn(secondColName), aliasColName));
+                        break;
+                    default:
+                        throw new RuntimeException("ERROR:  Invalid operator + '"
+                                + operators + "'!");
+                }
+
             } else {
-                throw new RuntimeException("ERROR: Malformed column expression!");
+                throw new RuntimeException("ERROR: Cannot have multiple operators!");
             }
+
+            /*for (int j = 0; j < OPERATORS.length; j++) {
+                if (expr.contains(OPERATORS[j])) {
+                    hasOperator = true;
+                }
+            }
+
+            if () {
+                colExprTable.addColumn(joined.getColumn(tokens[0]));
+            } else if (tokens.length == 5) {*/
+
+
+
+
         }
 
 
