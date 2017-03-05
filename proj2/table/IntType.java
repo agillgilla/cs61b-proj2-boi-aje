@@ -86,8 +86,14 @@ public class IntType extends Type {
                 return other.divide(this);
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
                 if (other.getType().equals("int")) {
+                    if ((Integer) other.getValueActual() == 0) {
+                        return new NanType("int");
+                    }
                     return new IntType(this.getValueActual() / (Integer) other.getValueActual());
                 } else if (other.getType().equals("float")) {
+                    if ((Float) other.getValueActual() == 0.0f) {
+                        return new NanType("int");
+                    }
                     return new FloatType(this.getValueActual() / (Float) other.getValueActual());
                 } else {
                     throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());

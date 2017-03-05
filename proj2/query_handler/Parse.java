@@ -125,7 +125,7 @@ public class Parse {
             return "ERROR: Malformed insert: " + expr;
         }
 
-        System.out.printf("You are trying to insert the row \"%s\" into the table %s\n", m.group(2), m.group(1));
+        //System.out.printf("You are trying to insert the row \"%s\" into the table %s\n", m.group(2), m.group(1));
         try {
             return this.db.insert(m.group(1), m.group(2).split(","));
         } catch (RuntimeException e) {
