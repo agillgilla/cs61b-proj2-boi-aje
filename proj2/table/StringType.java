@@ -17,7 +17,11 @@ public class StringType extends Type {
             if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.add(this);
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
-                return new StringType(this.getValueActual() + (String) other.getValueActual());
+                if (other.getType().equals("string")) {
+                    return new StringType(this.getValueActual());
+                } else {
+                    throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+                }
             } else {
                 return new StringType(this.getValue().substring(0, this.getValue().length() - 1) + ((String) other.getValue()).substring(1));
             }
@@ -80,5 +84,9 @@ public class StringType extends Type {
 
     public String getValueActual() {
         return this.getValue();
+    }
+
+    public String getType() {
+        return "string";
     }
 }

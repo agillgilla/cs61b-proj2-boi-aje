@@ -18,8 +18,14 @@ public class IntType extends Type {
                 return new FloatType((this.getValueActual() + (Float) other.getValueActual()));
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.add(this);
-            }  else if (other.getClass().getSimpleName().equals("NoValType")) {
-                return new IntType(this.getValueActual() + (Integer) other.getValueActual());
+            } else if (other.getClass().getSimpleName().equals("NoValType")) {
+                if (other.getType().equals("int")) {
+                    return new IntType(this.getValueActual() + (Integer) other.getValueActual());
+                } else if (other.getType().equals("float")) {
+                    return new FloatType(this.getValueActual() + (Float) other.getValueActual());
+                } else {
+                    throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+                }
             } else {
                 return new IntType(this.getValueActual() + (Integer) other.getValueActual());
             }
@@ -35,7 +41,13 @@ public class IntType extends Type {
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.subtract(this);
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
-                return new IntType(this.getValueActual() - (Integer) other.getValueActual());
+                if (other.getType().equals("int")) {
+                    return new IntType(this.getValueActual() - (Integer) other.getValueActual());
+                } else if (other.getType().equals("float")) {
+                    return new FloatType(this.getValueActual() - (Float) other.getValueActual());
+                } else {
+                    throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+                }
             } else {
                 return new IntType(this.getValueActual() - (Integer) other.getValueActual());
             }
@@ -51,7 +63,13 @@ public class IntType extends Type {
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.multiply(this);
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
-                return new IntType(this.getValueActual() * (Integer) other.getValueActual());
+                if (other.getType().equals("int")) {
+                    return new IntType(this.getValueActual() * (Integer) other.getValueActual());
+                } else if (other.getType().equals("float")) {
+                    return new FloatType(this.getValueActual() * (Float) other.getValueActual());
+                } else {
+                    throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+                }
             } else {
                 return new IntType(this.getValueActual() * (Integer) other.getValueActual());
             }
@@ -67,7 +85,13 @@ public class IntType extends Type {
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.divide(this);
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
-                return new IntType(this.getValueActual() / (Integer) other.getValueActual());
+                if (other.getType().equals("int")) {
+                    return new IntType(this.getValueActual() / (Integer) other.getValueActual());
+                } else if (other.getType().equals("float")) {
+                    return new FloatType(this.getValueActual() / (Float) other.getValueActual());
+                } else {
+                    throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+                }
             } else {
                 return new IntType(this.getValueActual() / (Integer) other.getValueActual());
             }
@@ -122,6 +146,10 @@ public class IntType extends Type {
 
     public Integer getValueActual() {
         return this.getValue();
+    }
+
+    public String getType() {
+        return "int";
     }
 
 }

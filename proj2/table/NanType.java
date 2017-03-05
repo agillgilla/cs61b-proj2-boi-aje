@@ -53,4 +53,8 @@ public class NanType extends Type {
     public String getValueActual() {
         return this.getValue();
     }
+
+    public String getType() {
+        return "none";
+    }
 }

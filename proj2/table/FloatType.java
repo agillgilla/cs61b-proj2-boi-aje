@@ -19,7 +19,13 @@ public class FloatType extends Type {
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.add(this);
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
-                return new FloatType(this.getValueActual() + (Float) other.getValueActual());
+                if (other.getType().equals("int")) {
+                    return new FloatType(this.getValueActual() + (Integer) other.getValueActual());
+                } else if (other.getType().equals("float")) {
+                    return new FloatType(this.getValueActual() + (Float) other.getValueActual());
+                } else {
+                    throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+                }
             } else {
                 return new FloatType(this.getValueActual() + (Float) other.getValueActual());
             }
@@ -35,7 +41,13 @@ public class FloatType extends Type {
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.subtract(this);
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
-                return new FloatType(this.getValueActual() - (Float) other.getValueActual());
+                if (other.getType().equals("int")) {
+                    return new FloatType(this.getValueActual() - (Integer) other.getValueActual());
+                } else if (other.getType().equals("float")) {
+                    return new FloatType(this.getValueActual() - (Float) other.getValueActual());
+                } else {
+                    throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+                }
             } else {
                 return new FloatType(this.getValueActual() - (Float) other.getValueActual());
             }
@@ -51,7 +63,13 @@ public class FloatType extends Type {
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.multiply(this);
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
-                return new FloatType(this.getValueActual() * (Float) other.getValueActual());
+                if (other.getType().equals("int")) {
+                    return new FloatType(this.getValueActual() * (Integer) other.getValueActual());
+                } else if (other.getType().equals("float")) {
+                    return new FloatType(this.getValueActual() * (Float) other.getValueActual());
+                } else {
+                    throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+                }
             } else {
                 return new FloatType(this.getValueActual() * (Float) other.getValueActual());
             }
@@ -67,7 +85,13 @@ public class FloatType extends Type {
             } else if (other.getClass().getSimpleName().equals("NanType")) {
                 return other.divide(this);
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
-                return new FloatType(this.getValueActual() / (Float) other.getValueActual());
+                if (other.getType().equals("int")) {
+                    return new FloatType(this.getValueActual() / (Integer) other.getValueActual());
+                } else if (other.getType().equals("float")) {
+                    return new FloatType(this.getValueActual() / (Float) other.getValueActual());
+                } else {
+                    throw new RuntimeException("ERROR: Cannot use + operator on " + this.getClass().getSimpleName() + " and " + other.getClass().getSimpleName());
+                }
             } else {
                 return new FloatType(this.getValueActual() / (Float) other.getValueActual());
             }
@@ -122,5 +146,9 @@ public class FloatType extends Type {
 
     public Float getValueActual() {
         return (Float) super.getValue();
+    }
+
+    public String getType() {
+        return "float";
     }
 }

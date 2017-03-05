@@ -26,4 +26,6 @@ public abstract class Type {
 
     public abstract Object getValueActual();
 
+    public abstract String getType();
+
 }
