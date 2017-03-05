@@ -55,6 +55,6 @@ public class NanType extends Type {
     }
 
     public String getType() {
-        return "none";
+        return this.type;
     }
 }
