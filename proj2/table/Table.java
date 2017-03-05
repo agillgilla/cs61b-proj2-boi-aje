@@ -26,7 +26,7 @@ public class Table {
         }
     }
 
-    /* TODO: Check that height of tables are matching.*/
+    /* TODO: Check that height of tables are matching. */
     public Table(Table... tables) {
         this.columns =  new LinkedHashMap<>();
         for (Table table : tables) {
@@ -117,12 +117,16 @@ public class Table {
     }
 
     public Column getColumn(String columnName) {
-        return this.columns.get(columnName);
+        if (this.columns.containsKey(columnName)) {
+            return this.columns.get(columnName);
+        } else {
+            throw new RuntimeException("ERROR: Column '" + columnName + "' not found!");
+        }
     }
 
     public Column getColumnByIndex(int index) {
         if (index >= this.getWidth()) {
-            throw new RuntimeException("ERROR: Index out of bounds of table columns.");
+            throw new RuntimeException("ERROR: Index out of bounds of table columns!");
         } else {
             return this.columns.get(this.columns.keySet().toArray()[index]);
         }
@@ -146,6 +150,31 @@ public class Table {
             i++;
         }
         return columnNames;
+    }
+
+    public Column[] getColumns(String[] columnNames) {
+        if (containsColumns(columnNames)) {
+            Column[] columnList = new Column[columnNames.length];
+            for (int i = 0; i < columnNames.length; i++) {
+                columnList[i] = this.columns.get(columnNames[i]);
+            }
+            return columnList;
+        } else {
+            throw new RuntimeException("ERROR: Invalid column name list!");
+        }
+    }
+
+    public boolean containsColumns(String[] columnNames) {
+        for (String name : columnNames) {
+            if (this.containsColumn(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean containsColumn(String columnName) {
+        return this.columns.containsKey(columnName);
     }
 
     public int getHeight() {

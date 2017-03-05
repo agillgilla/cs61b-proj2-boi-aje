@@ -109,4 +109,46 @@ public class Column {
         }
         return this.type;
     }
+
+    public Column addColumn(Column other, String name) {
+        Column added = new Column(name, this.getType());
+        sizeMatchCheck(other);
+        for (int i = 0; i < this.size(); i++) {
+            added.add(this.get(i).add(other.get(i)));
+        }
+        return added;
+    }
+
+    public Column subtractColumn(Column other, String name) {
+        Column subtracted = new Column(name, this.getType());
+        sizeMatchCheck(other);
+        for (int i = 0; i < this.size(); i++) {
+            subtracted.add(this.get(i).subtract(other.get(i)));
+        }
+        return subtracted;
+    }
+
+    public Column multiplyColumn(Column other, String name) {
+        Column multiplied = new Column(name, this.getType());
+        sizeMatchCheck(other);
+        for (int i = 0; i < this.size(); i++) {
+            multiplied.add(this.get(i).multiply(other.get(i)));
+        }
+        return multiplied;
+    }
+
+    public Column divideColumn(Column other, String name) {
+        Column divided = new Column(name, this.getType());
+        sizeMatchCheck(other);
+        for (int i = 0; i < this.size(); i++) {
+            divided.add(this.get(i).divide(other.get(i)));
+        }
+        return divided;
+    }
+
+    public void sizeMatchCheck(Column other) {
+        if (this.size() != other.size()) {
+            throw new RuntimeException("ERROR: Column sizes must match!");
+        }
+    }
 }
