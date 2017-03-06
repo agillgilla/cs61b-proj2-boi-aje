@@ -2,7 +2,6 @@ package db.table_io;
 
 import db.table.Column;
 import db.table.Table;
-import table.*;
 
 import java.io.*;
 
@@ -19,6 +18,10 @@ public class TblFileReader {
             String line;
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
+                if (tableName.equals("basicJoin1") || tableName.equals("basicJoin2") || tableName.equals("multiTableJoin")) {
+                    System.out.println(tableName + ":");
+                    System.out.println(line);
+                }
                 String[] entries = line.split(",");
                 if (firstLine) {
                     for (String colName : entries) {
