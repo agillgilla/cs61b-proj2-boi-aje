@@ -1,11 +1,11 @@
 package db;
 
-import query_handler.Parse;
-import query_handler.TblCommands;
-import table.Column;
-import table.Table;
-import table_io.TblFileReader;
-import table_io.TblFileWriter;
+import db.query_handler.Parse;
+import db.query_handler.TblCommands;
+import db.table.Column;
+import db.table.Table;
+import db.table_io.TblFileReader;
+import db.table_io.TblFileWriter;
 
 import java.util.HashMap;
 
