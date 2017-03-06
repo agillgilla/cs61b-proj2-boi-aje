@@ -1,5 +1,6 @@
 package db.table;
 
+import db.query_handler.TblCommands;
 import db.table_io.TblFileReader;
 
 import java.util.LinkedHashMap;
@@ -44,7 +45,7 @@ public class Table {
 
     public void addRow(Type[] elements) {
         if (this.getWidth() == 0) {
-
+            throw new RuntimeException("ERROR: Cannot add row to empty table!");
         } else if (elements.length != this.getWidth()) {
             throw new RuntimeException("ERROR: Table rectangularity must be preserved");
         }
@@ -264,8 +265,22 @@ public class Table {
 
         T1_T2.printTable();*/
 
-        Table T = TblFileReader.readTable("loadBasic1");
-        T.print();
+        //Table T = TblFileReader.readTable("loadBasic1");
+        //T.print();
 
+        /*Table basicJoin1 = new Table();
+        basicJoin1.addColumn(new Column("a", new StringType[] {new StringType("hello"), new StringType("what"), new StringType("your"), new StringType("and"), new StringType("are"), new StringType("reading")}));
+        basicJoin1.addColumn(new Column("b", new StringType[] {new StringType("there"), new StringType("is"), new StringType("name"), new StringType("why"), new StringType("you"), new StringType("this?")}));
+
+        Table basicJoin2 = new Table();
+        basicJoin2.addColumn(new Column("a", new StringType[] {new StringType("hello"), new StringType("what"), new StringType("your"), new StringType("and"), new StringType("are"), new StringType("reading")}));
+        basicJoin2.addColumn(new Column("c", new StringType[] {new StringType("student"), new StringType("are"), new StringType("ideas"), new StringType("how"), new StringType("you even"), new StringType("this?")}));
+
+        Table multiTableJoin = new Table();
+        multiTableJoin.addColumn(new Column("a", new StringType[] {new StringType("hello"), new StringType("variable"), new StringType("your"), new StringType("hello"), new StringType("are"), new StringType("seahorse")}));
+        multiTableJoin.addColumn(new Column("d", new StringType[] {new StringType("mountain"), new StringType("are"), new StringType("ideas"), new StringType("boat"), new StringType("cows"), new StringType("this?")}));
+
+        TblCommands.joinAll(new Table[] {basicJoin1, basicJoin2}).printTable(); */
+        //System.out.println(TblCommands.joinAll(new Table[] {basicJoin1, basicJoin2, multiTableJoin}).print());
     }
 }
