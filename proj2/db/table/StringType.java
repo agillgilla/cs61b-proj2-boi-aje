@@ -57,6 +57,7 @@ public class StringType extends Type {
             } else if (other.getClass().getSimpleName().equals("NoValType")) {
                 return other.greaterThan(this);
             } else {
+                System.out.println("COMAPRING " + this.getValue() + " and " + other.getValue());
                 return ((String) this.getValue()).compareTo((String) other.getValue()) < 0;
             }
         } else {

@@ -14,7 +14,7 @@ public class Database {
     private Parse parser;
 
     private static final String[] OPERATORS = new String[] {"+", "-", "*", "/"};
-    private static final String[] COMPARATORS = new String[] {"<", "<=", ">", ">=", "==", "!="};
+    private static final String[] COMPARATORS = new String[] {">=", "<=", ">", "<", "==", "!="};
 
     public Database() {
         this.tables = new HashMap<>();
