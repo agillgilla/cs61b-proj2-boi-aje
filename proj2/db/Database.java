@@ -213,12 +213,14 @@ public class Database {
                             for (int row = 0; row < left.size(); row++) {
                                 if (!left.compareToColumn(colExprTable.getColumn(right), comp, row)) {
                                     colExprTable.removeRow(row);
+                                    row--;
                                 }
                             }
                         } else {
                             for (int row = 0; row < left.size(); row++) {
                                 if (!left.compareLiteral(right, comp, row)) {
                                     colExprTable.removeRow(row);
+                                    row--;
                                 }
                             }
                         }
