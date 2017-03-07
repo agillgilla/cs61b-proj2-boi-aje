@@ -152,6 +152,84 @@ public class Column {
         return divided;
     }
 
+    public boolean compareToColumn(Column other, String comparator, int index) {
+        switch (comparator) {
+            case "<":
+                if (this.get(index).lessThan(other.get(index))) {
+                    return true;
+                }
+                break;
+            case "<=":
+                if (this.get(index).lessThan(other.get(index)) || this.get(index).equals(other.get(index))) {
+                    return true;
+                }
+                break;
+            case ">":
+                if (this.get(index).greaterThan(other.get(index))) {
+                    return true;
+                }
+                break;
+            case ">=":
+                if (this.get(index).greaterThan(other.get(index)) || this.get(index).equals(other.get(index))) {
+                    return true;
+                }
+                break;
+            case "==":
+                if (this.get(index).equals(other.get(index))) {
+                    return true;
+                }
+                break;
+            case "!=":
+                if (!this.get(index).equals(other.get(index))) {
+                    return true;
+                }
+                break;
+            default:
+                throw new RuntimeException("ERROR: Unknown comparator '" + comparator + "'");
+        }
+        return false;
+    }
+
+    public boolean compareLiteral(String literal, String comparator, int index) {
+        Type literalType = StringParse.typeParse(literal);
+        switch (comparator) {
+            case "<":
+                if (this.get(index).lessThan(literalType)) {
+                    return true;
+                }
+                break;
+            case "<=":
+                if (this.get(index).lessThan(literalType) || this.get(index).equals(literalType)) {
+                    return true;
+                }
+                break;
+            case ">":
+                if (this.get(index).greaterThan(literalType)) {
+                    return true;
+                }
+                break;
+            case ">=":
+                if (this.get(index).greaterThan(literalType) || this.get(index).equals(literalType)) {
+                    return true;
+                }
+                break;
+            case "==":
+                if (this.get(index).equals(literalType)) {
+                    return true;
+                }
+                break;
+            case "!=":
+                if (!this.get(index).equals(literalType)) {
+                    return true;
+                }
+                break;
+            default:
+                throw new RuntimeException("ERROR: Unknown comparator '" + comparator + "'");
+        }
+        return false;
+    }
+
+
     public void sizeMatchCheck(Column other) {
         if (this.size() != other.size()) {
             throw new RuntimeException("ERROR: Column sizes must match!");

@@ -14,6 +14,7 @@ public class Database {
     private Parse parser;
 
     private static final String[] OPERATORS = new String[] {"+", "-", "*", "/"};
+    private static final String[] COMPARATORS = new String[] {"<", "<=", ">", ">=", "==", "!="};
 
     public Database() {
         this.tables = new HashMap<>();
@@ -146,21 +147,13 @@ public class Database {
     }
 
     public Table select(String exprsList, String tablesList, String condsList) {
-
         Table colExprTable = new Table();
-
         String[] expressions = exprsList.split(",");
-        /*for (int i = 0; i < expressions.length; i++) {
-            expressions[i] = expressions[i].trim().replaceAll(" +", " ");
-        }*/
-
-
         for (int i = 0; i < expressions.length; i++) {
             String expr = expressions[i];
             String exprReduced = expr.trim().replaceAll(" +", " ");
             expr = expr.replaceAll("\\s+", "");
             String operators = expr.replaceAll("[^+-/*]", "");
-
             if (operators.length() == 0) {
                 Table joined = this.joinTable(tablesList.split(","));
                 colExprTable.addColumn(joined.getColumn(exprReduced.trim()));
@@ -173,7 +166,6 @@ public class Database {
                 String firstColName = exprReduced.substring(0, indexOfOperator).trim();
                 String secondColName = exprReduced.substring(indexOfOperator + 1, indexOfAs).trim();
                 String aliasColName = exprReduced.substring(indexOfAs + 4).trim();
-
                 if (firstColName.equals("")
                         || secondColName.equals("")
                         || aliasColName.equals("")) {
@@ -205,14 +197,33 @@ public class Database {
                         throw new RuntimeException("ERROR:  Invalid operator + '"
                                 + operators + "'!");
                 }
-
             } else {
                 throw new RuntimeException("ERROR: Cannot have multiple operators!");
             }
-
         }
-
-
+        String[] condsListSeparated = condsList.split("and");
+        for (String condition : condsListSeparated) {
+            for (String comp : COMPARATORS) {
+                if (condition.contains(comp)) {
+                    String[] conditionList = condition.split(comp);
+                    Column left = colExprTable.getColumn(conditionList[0].trim());
+                    String right = conditionList[1].trim();
+                    if (colExprTable.containsColumn(right)) {
+                        for (int row = 0; row < left.size(); row++) {
+                            if (!left.compareToColumn(colExprTable.getColumn(right), comp, row)) {
+                                colExprTable.removeRow(row);
+                            }
+                        }
+                    } else {
+                        for (int row = 0; row < left.size(); row++) {
+                            if (!left.compareLiteral(right, comp, row)) {
+                                colExprTable.removeRow(row);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return colExprTable;
     }
 
