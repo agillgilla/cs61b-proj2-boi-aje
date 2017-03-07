@@ -19,6 +19,7 @@ public class TblFileReader {
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
                 if (tableName.equals("loadMalformed6")) {
+                    System.out.println("IT WAS RUN!");
                     System.out.println(line);
                 }
                 String[] entries = line.split(",");
