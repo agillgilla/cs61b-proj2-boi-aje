@@ -18,10 +18,6 @@ public class TblFileReader {
             String line;
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
-                if (tableName.equals("loadMalformed6")) {
-                    System.out.println("IT WAS RUN!");
-                    System.out.println(line);
-                }
                 String[] entries = line.split(",");
                 if (firstLine) {
                     for (String colName : entries) {
@@ -73,11 +69,15 @@ public class TblFileReader {
                     }
                 }
             }
+            if (firstLine) {
+                throw new RuntimeException("ERROR: The table file '" + tableName "' is empty!");
+            }
         } catch (FileNotFoundException fnfe) {
             return null;
         } catch (IOException ioe) {
             return null;
         }
+
 
         return table;
     }
