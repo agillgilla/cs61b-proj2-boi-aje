@@ -107,7 +107,7 @@ public class Parse {
             } else if (conds == null) {
                 return this.db.createTable(name, this.db.select(exprs, tables, conds));
             } else {
-                return "OOPS! I CAN'T HANDLE THIS!";
+                return this.db.createTable(name, this.db.select(exprs, tables, conds));
             }
         } catch (RuntimeException e) {
             return e.getMessage();
@@ -169,7 +169,7 @@ public class Parse {
             } else if (conds == null) {
                 return this.db.selectPrint(exprs, tables, conds);
             } else {
-                return "OOPS! I CAN'T HANDLE THIS!";
+                return this.db.select(exprs, tables, conds).print();
             }
         } catch (RuntimeException e) {
             return e.getMessage();

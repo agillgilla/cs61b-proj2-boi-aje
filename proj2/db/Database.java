@@ -201,23 +201,25 @@ public class Database {
                 throw new RuntimeException("ERROR: Cannot have multiple operators!");
             }
         }
-        String[] condsListSeparated = condsList.split("and");
-        for (String condition : condsListSeparated) {
-            for (String comp : COMPARATORS) {
-                if (condition.contains(comp)) {
-                    String[] conditionList = condition.split(comp);
-                    Column left = colExprTable.getColumn(conditionList[0].trim());
-                    String right = conditionList[1].trim();
-                    if (colExprTable.containsColumn(right)) {
-                        for (int row = 0; row < left.size(); row++) {
-                            if (!left.compareToColumn(colExprTable.getColumn(right), comp, row)) {
-                                colExprTable.removeRow(row);
+        if (condsList != null) {
+            String[] condsListSeparated = condsList.split("and");
+            for (String condition : condsListSeparated) {
+                for (String comp : COMPARATORS) {
+                    if (condition.contains(comp)) {
+                        String[] conditionList = condition.split(comp);
+                        Column left = colExprTable.getColumn(conditionList[0].trim());
+                        String right = conditionList[1].trim();
+                        if (colExprTable.containsColumn(right)) {
+                            for (int row = 0; row < left.size(); row++) {
+                                if (!left.compareToColumn(colExprTable.getColumn(right), comp, row)) {
+                                    colExprTable.removeRow(row);
+                                }
                             }
-                        }
-                    } else {
-                        for (int row = 0; row < left.size(); row++) {
-                            if (!left.compareLiteral(right, comp, row)) {
-                                colExprTable.removeRow(row);
+                        } else {
+                            for (int row = 0; row < left.size(); row++) {
+                                if (!left.compareLiteral(right, comp, row)) {
+                                    colExprTable.removeRow(row);
+                                }
                             }
                         }
                     }
@@ -225,6 +227,7 @@ public class Database {
             }
         }
         return colExprTable;
+
     }
 
     public String selectPrint(String exprsList, String tablesList, String condsList) {
