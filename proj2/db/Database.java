@@ -227,8 +227,8 @@ public class Database {
                                 }
                             }
                         }
+                        break;
                     }
-                    break;
                 }
             }
         }
