@@ -201,6 +201,9 @@ public class Database {
                 throw new RuntimeException("ERROR: Cannot have multiple operators!");
             }
         }
+
+        colExprTable = colExprTable.copy();
+
         if (condsList != null) {
             String[] condsListSeparated = condsList.split("and");
             for (String condition : condsListSeparated) {

@@ -235,4 +235,12 @@ public class Column {
             throw new RuntimeException("ERROR: Column sizes must match!");
         }
     }
+
+    public Column copy() {
+        Column copy = new Column(this.getName(), this.getType());
+        for (Type element : this.elements) {
+            copy.add(element.copy());
+        }
+        return copy;
+    }
 }

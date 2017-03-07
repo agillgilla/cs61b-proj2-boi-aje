@@ -57,4 +57,8 @@ public class NanType extends Type {
     public String getType() {
         return this.type;
     }
+
+    public NanType copy() {
+        return new NanType(this.getType());
+    }
 }

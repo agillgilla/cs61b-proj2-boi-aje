@@ -200,6 +200,14 @@ public class Table {
         return this.name;
     }
 
+    public Table copy() {
+        Table copy = new Table();
+        for (String columnName : this.getColumnNames()) {
+            copy.addColumn(this.getColumn(columnName).copy());
+        }
+        return copy;
+    }
+
     public static void main(String[] args) {
         /*Table T1 = new Table(new String[] {"X", "Y"});
         T1.addRow(new IntType[] {new IntType(2), new IntType(5)});

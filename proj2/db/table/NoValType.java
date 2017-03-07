@@ -75,4 +75,8 @@ public class NoValType extends Type {
     public String getValue() {
         return "NOVALUE";
     }
+
+    public NoValType copy() {
+        return new NoValType(this.getType());
+    }
 }

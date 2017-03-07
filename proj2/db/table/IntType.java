@@ -164,4 +164,8 @@ public class IntType extends Type {
         return "int";
     }
 
+    public IntType copy() {
+        return new IntType(this.getValueActual());
+    }
+
 }

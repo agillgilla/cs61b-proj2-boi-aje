@@ -97,4 +97,8 @@ public class StringType extends Type {
     public String getType() {
         return "string";
     }
+
+    public StringType copy() {
+        return new StringType(this.getValueActual());
+    }
 }

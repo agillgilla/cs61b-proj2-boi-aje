@@ -163,4 +163,8 @@ public class FloatType extends Type {
     public String getType() {
         return "float";
     }
+
+    public FloatType copy() {
+        return new FloatType(this.getValueActual());
+    }
 }
