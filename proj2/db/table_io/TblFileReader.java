@@ -70,7 +70,7 @@ public class TblFileReader {
                 }
             }
             if (firstLine) {
-                throw new RuntimeException("ERROR: The table file '" + tableName "' is empty!");
+                throw new RuntimeException("ERROR: The table file '" + tableName + "' is empty!");
             }
         } catch (FileNotFoundException fnfe) {
             return null;
