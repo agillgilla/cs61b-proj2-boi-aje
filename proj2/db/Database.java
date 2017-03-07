@@ -228,6 +228,7 @@ public class Database {
                             }
                         }
                     }
+                    break;
                 }
             }
         }
