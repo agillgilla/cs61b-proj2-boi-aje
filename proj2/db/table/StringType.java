@@ -58,6 +58,9 @@ public class StringType extends Type {
                 return other.greaterThan(this);
             } else {
                 System.out.println("COMAPRING " + this.getValue() + " < " + other.getValue());
+                if (((String) this.getValue()).compareTo((String) other.getValue()) < 0) {
+                    System.out.println(" IT IS! ");
+                }
                 return ((String) this.getValue()).compareTo((String) other.getValue()) < 0;
             }
         } else {
@@ -73,6 +76,9 @@ public class StringType extends Type {
                 return other.lessThan(this);
             } else {
                 System.out.println("COMAPRING " + this.getValue() + " > " + other.getValue());
+                if (((String) this.getValue()).compareTo((String) other.getValue()) > 0) {
+                    System.out.println(" IT IS! ");
+                }
                 return ((String) this.getValue()).compareTo((String) other.getValue()) > 0;
             }
         } else {
