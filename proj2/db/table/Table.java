@@ -97,7 +97,7 @@ public class Table {
         }
     }
 
-    public String print() {
+    /*public String print() {
         String tablePrinted = "";
         for (String columnName : this.columns.keySet()) {
             tablePrinted += columnName + " " + this.getColumn(columnName).getType() + ",";
@@ -113,6 +113,28 @@ public class Table {
             tablePrinted += "\n";
         }
         return tablePrinted;
+    }*/
+
+    public String print() {
+        StringBuilder tablePrinted = new StringBuilder("");
+        for (String columnName : this.columns.keySet()) {
+            tablePrinted.append(columnName);
+            tablePrinted.append(" ");
+            tablePrinted.append(this.getColumn(columnName).getType());
+            tablePrinted.append(",");
+        }
+        tablePrinted = new StringBuilder(tablePrinted.substring(0, tablePrinted.length() - 1));
+        tablePrinted.append("\n");
+
+        for (int rowIndex = 0; rowIndex < this.getHeight(); rowIndex++) {
+            for (String columnName : this.columns.keySet()) {
+                tablePrinted.append(this.getColumn(columnName).get(rowIndex));
+                tablePrinted.append(",");
+            }
+            tablePrinted = new StringBuilder(tablePrinted.substring(0, tablePrinted.length() - 1));
+            tablePrinted.append("\n");
+        }
+        return tablePrinted.toString();
     }
 
     public Column getColumn(String columnName) {

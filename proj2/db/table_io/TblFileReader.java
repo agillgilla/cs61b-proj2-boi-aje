@@ -18,6 +18,9 @@ public class TblFileReader {
             String line;
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
+                if (tableName.equals("loadMalformed6")) {
+                    System.out.println(line);
+                }
                 String[] entries = line.split(",");
                 if (firstLine) {
                     for (String colName : entries) {
